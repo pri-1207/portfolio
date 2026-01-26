@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Prisha Gupta — Portfolio Website
 
 A premium, minimalist, pastel-themed portfolio website built with Next.js, Tailwind CSS, GSAP, and React Three Fiber.
@@ -146,3 +147,7 @@ MIT License — feel free to use this template for your own portfolio.
 ---
 
 **Built with calm design & sharp engineering.**
+=======
+# portfolio
+My portfolio webiste
+>>>>>>> 858b036cbc6442f104aed6a12ff4748f425a806e
