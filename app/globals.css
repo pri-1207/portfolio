@@ -1,0 +1,854 @@
+/* ============================================
+   PRISHA GUPTA - SCRAPBOOK JOURNAL PORTFOLIO
+   Pinterest-Style Gingham & Collage Design
+   ============================================ */
+
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Manrope:wght@300;400;500;600;700&family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   CSS CUSTOM PROPERTIES - SCRAPBOOK PALETTE
+   ============================================ */
+:root {
+    /* Gingham Colors */
+    --gingham-blue: #A8C8E8;
+    --gingham-blue-light: #D4E4F4;
+    --gingham-pink: #F5D0D0;
+    --gingham-pink-light: #FBE8E8;
+    --gingham-red: #E8A8A8;
+
+    /* Paper Colors */
+    --paper-white: #FFFEF8;
+    --paper-cream: #FFF8E7;
+    --paper-aged: #F5ECD7;
+    --kraft-paper: #C9A66B;
+    --kraft-dark: #A68B5B;
+
+    /* Accent Colors */
+    --muted-red: #B84A4A;
+    --denim-blue: #2E5E8A;
+    --dusty-pink: #D4A5A5;
+    --sage-green: #8BA888;
+    --mustard: #D4A94B;
+    --lavender: #B8A8D4;
+
+    /* Text Colors */
+    --charcoal: #1E1E1E;
+    --cocoa: #4A3A2A;
+    --text-muted: #6B5B4B;
+
+    /* Sticky Note Colors */
+    --sticky-yellow: #FFF59D;
+    --sticky-pink: #F8BBD9;
+    --sticky-blue: #B3E5FC;
+    --sticky-green: #C8E6C9;
+    --sticky-orange: #FFCC80;
+
+    /* Washi Tape Colors */
+    --washi-pink: #FADCD9;
+    --washi-blue: #D4E6F1;
+    --washi-mint: #D5F5E3;
+    --washi-peach: #FCE4D6;
+
+    /* Typography */
+    --font-title: 'DM Serif Display', 'Playfair Display', Georgia, serif;
+    --font-body: 'Inter', 'Manrope', -apple-system, sans-serif;
+    --font-typewriter: 'Special Elite', 'Courier Prime', monospace;
+    --font-accent: 'Manrope', sans-serif;
+
+    /* Shadows */
+    --shadow-paper: 0 2px 8px rgba(0, 0, 0, 0.08), 0 4px 20px rgba(0, 0, 0, 0.04);
+    --shadow-lifted: 0 8px 25px rgba(0, 0, 0, 0.12), 0 4px 10px rgba(0, 0, 0, 0.08);
+    --shadow-sticker: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+    /* Spacing */
+    --section-padding: clamp(4rem, 10vw, 7rem);
+}
+
+/* ============================================
+   BASE STYLES + GINGHAM BACKGROUND
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--charcoal);
+    line-height: 1.7;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+
+    /* GINGHAM BACKGROUND PATTERN */
+    background-color: var(--gingham-blue-light);
+    background-image:
+        /* Grain overlay */
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"),
+        /* Gingham pattern */
+        repeating-linear-gradient(0deg,
+            transparent,
+            transparent 20px,
+            rgba(168, 200, 232, 0.3) 20px,
+            rgba(168, 200, 232, 0.3) 40px),
+        repeating-linear-gradient(90deg,
+            transparent,
+            transparent 20px,
+            rgba(168, 200, 232, 0.3) 20px,
+            rgba(168, 200, 232, 0.3) 40px);
+    background-size: 100% 100%, 40px 40px, 40px 40px;
+}
+
+/* ============================================
+   TYPOGRAPHY - JOURNAL STYLE
+   ============================================ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-title);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--charcoal);
+}
+
+h1 {
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    letter-spacing: -0.02em;
+}
+
+h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+h3 {
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+}
+
+p {
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.8;
+    color: var(--cocoa);
+}
+
+/* Typewriter text for labels */
+.typewriter-text {
+    font-family: var(--font-typewriter);
+    letter-spacing: 0.05em;
+}
+
+/* ============================================
+   LAYOUT UTILITIES
+   ============================================ */
+.container {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 clamp(1.5rem, 4vw, 3rem);
+}
+
+.section {
+    padding: var(--section-padding) 0;
+    position: relative;
+}
+
+/* ============================================
+   SCRAP PAGE CARD - Torn Paper Container
+   ============================================ */
+.scrap-page {
+    background: var(--paper-white);
+    position: relative;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-paper);
+
+    /* Torn edge effect using mask */
+    clip-path: polygon(0% 0%,
+            3% 0.5%,
+            6% 0%,
+            9% 0.8%,
+            12% 0.2%,
+            15% 0.6%,
+            18% 0%,
+            21% 0.4%,
+            24% 0.1%,
+            27% 0.7%,
+            30% 0.2%,
+            33% 0.5%,
+            36% 0%,
+            39% 0.6%,
+            42% 0.1%,
+            45% 0.4%,
+            48% 0%,
+            51% 0.5%,
+            54% 0.2%,
+            57% 0.7%,
+            60% 0%,
+            63% 0.4%,
+            66% 0.1%,
+            69% 0.6%,
+            72% 0.2%,
+            75% 0.5%,
+            78% 0%,
+            81% 0.7%,
+            84% 0.3%,
+            87% 0.6%,
+            90% 0%,
+            93% 0.4%,
+            96% 0.1%,
+            100% 0%,
+            100% 100%,
+            97% 99.5%,
+            94% 100%,
+            91% 99.3%,
+            88% 99.8%,
+            85% 99.4%,
+            82% 100%,
+            79% 99.6%,
+            76% 99.2%,
+            73% 99.7%,
+            70% 100%,
+            67% 99.5%,
+            64% 99.8%,
+            61% 99.3%,
+            58% 100%,
+            55% 99.6%,
+            52% 99.2%,
+            49% 99.8%,
+            46% 99.4%,
+            43% 100%,
+            40% 99.5%,
+            37% 99.9%,
+            34% 99.3%,
+            31% 99.7%,
+            28% 100%,
+            25% 99.4%,
+            22% 99.8%,
+            19% 99.2%,
+            16% 99.6%,
+            13% 100%,
+            10% 99.5%,
+            7% 99.8%,
+            4% 99.3%,
+            1% 99.7%,
+            0% 100%);
+}
+
+.scrap-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)' opacity='0.02'/%3E%3C/svg%3E");
+    pointer-events: none;
+}
+
+.scrap-page.rotated-left {
+    transform: rotate(-1deg);
+}
+
+.scrap-page.rotated-right {
+    transform: rotate(1deg);
+}
+
+.scrap-page.cream {
+    background: var(--paper-cream);
+}
+
+.scrap-page.aged {
+    background: var(--paper-aged);
+}
+
+/* ============================================
+   STICKY NOTE COMPONENT
+   ============================================ */
+.sticky-note {
+    background: var(--sticky-yellow);
+    padding: 1.25rem 1.5rem;
+    position: relative;
+    box-shadow:
+        2px 3px 8px rgba(0, 0, 0, 0.1),
+        0 1px 2px rgba(0, 0, 0, 0.08);
+    transform: rotate(-1deg);
+    font-family: var(--font-body);
+}
+
+.sticky-note::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 25px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.03) 0%, transparent 100%);
+    pointer-events: none;
+}
+
+.sticky-note.pink {
+    background: var(--sticky-pink);
+}
+
+.sticky-note.blue {
+    background: var(--sticky-blue);
+}
+
+.sticky-note.green {
+    background: var(--sticky-green);
+}
+
+.sticky-note.orange {
+    background: var(--sticky-orange);
+}
+
+.sticky-note:hover {
+    transform: rotate(-1deg) translateY(-3px);
+    box-shadow:
+        4px 6px 15px rgba(0, 0, 0, 0.15),
+        0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================
+   WASHI TAPE COMPONENT
+   ============================================ */
+.washi-tape {
+    position: absolute;
+    height: 28px;
+    background: var(--washi-pink);
+    opacity: 0.85;
+    z-index: 10;
+}
+
+.washi-tape.horizontal {
+    width: 100px;
+}
+
+.washi-tape.diagonal-left {
+    width: 80px;
+    transform: rotate(-35deg);
+}
+
+.washi-tape.diagonal-right {
+    width: 80px;
+    transform: rotate(35deg);
+}
+
+.washi-tape.blue {
+    background: var(--washi-blue);
+}
+
+.washi-tape.mint {
+    background: var(--washi-mint);
+}
+
+.washi-tape.peach {
+    background: var(--washi-peach);
+}
+
+/* Polka dot pattern */
+.washi-tape.polka {
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) 2px, transparent 2px);
+    background-size: 8px 8px;
+}
+
+/* Stripe pattern */
+.washi-tape.striped {
+    background-image: repeating-linear-gradient(45deg,
+            transparent,
+            transparent 3px,
+            rgba(255, 255, 255, 0.4) 3px,
+            rgba(255, 255, 255, 0.4) 6px);
+}
+
+/* ============================================
+   POLAROID FRAME COMPONENT
+   ============================================ */
+.polaroid-frame {
+    background: #FFFEF9;
+    padding: 12px 12px 45px 12px;
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.1),
+        0 8px 30px rgba(0, 0, 0, 0.05);
+    transform: rotate(2deg);
+    position: relative;
+}
+
+.polaroid-frame .photo-area {
+    background: linear-gradient(135deg, #E8E4DA 0%, #D4D0C6 100%);
+    aspect-ratio: 1 / 1.1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-typewriter);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    border: 1px dashed #999;
+}
+
+.polaroid-frame .caption {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: var(--font-typewriter);
+    font-size: 0.75rem;
+    color: var(--cocoa);
+}
+
+/* ============================================
+   PAPERCLIP COMPONENT
+   ============================================ */
+.paperclip {
+    position: absolute;
+    width: 25px;
+    height: 60px;
+    z-index: 15;
+}
+
+.paperclip svg {
+    width: 100%;
+    height: 100%;
+}
+
+.paperclip:hover {
+    animation: wiggle 0.3s ease-in-out;
+}
+
+@keyframes wiggle {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(5deg);
+    }
+
+    75% {
+        transform: rotate(-5deg);
+    }
+}
+
+/* ============================================
+   STAMP BADGE COMPONENT
+   ============================================ */
+.stamp-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border: 3px solid var(--muted-red);
+    border-radius: 4px;
+    font-family: var(--font-typewriter);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted-red);
+    transform: rotate(-5deg);
+    opacity: 0.85;
+}
+
+.stamp-badge.circle {
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    padding: 0;
+}
+
+/* ============================================
+   STICKER LABEL COMPONENT
+   ============================================ */
+.sticker-label {
+    display: inline-block;
+    padding: 4px 12px;
+    background: var(--kraft-paper);
+    font-family: var(--font-typewriter);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--paper-white);
+    box-shadow: var(--shadow-sticker);
+}
+
+.sticker-label.white {
+    background: var(--paper-white);
+    color: var(--charcoal);
+    border: 1px solid #DDD;
+}
+
+/* ============================================
+   VERTICAL SIDE LABEL
+   ============================================ */
+.side-label {
+    position: absolute;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: var(--font-typewriter);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+/* ============================================
+   CRUSHED PAPER TEXTURE
+   ============================================ */
+.crushed-paper-bg {
+    position: relative;
+}
+
+.crushed-paper-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='crumple'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.02' numOctaves='3' seed='15' /%3E%3CfeDisplacementMap in='SourceGraphic' scale='5' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23F5ECD7' opacity='0.2'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.5;
+    z-index: 0;
+}
+
+/* ============================================
+   BUTTONS - SCRAPBOOK STYLE
+   ============================================ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    font-family: var(--font-accent);
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    outline: none;
+}
+
+.btn-primary {
+    background: var(--muted-red);
+    color: var(--paper-white);
+    box-shadow: 0 3px 10px rgba(184, 74, 74, 0.3);
+}
+
+.btn-primary:hover {
+    background: #A43E3E;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(184, 74, 74, 0.4);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--charcoal);
+    border: 2px solid var(--charcoal);
+}
+
+.btn-secondary:hover {
+    background: var(--charcoal);
+    color: var(--paper-white);
+}
+
+.btn-kraft {
+    background: var(--kraft-paper);
+    color: var(--paper-white);
+}
+
+.btn-kraft:hover {
+    background: var(--kraft-dark);
+}
+
+/* ============================================
+   FORM ELEMENTS
+   ============================================ */
+.input-field {
+    width: 100%;
+    padding: 14px 18px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    background: var(--paper-white);
+    border: 2px solid #E0D8C8;
+    border-radius: 4px;
+    color: var(--charcoal);
+    transition: all 0.3s ease;
+}
+
+.input-field::placeholder {
+    color: var(--text-muted);
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: var(--denim-blue);
+    box-shadow: 0 0 0 3px rgba(46, 94, 138, 0.1);
+}
+
+textarea.input-field {
+    min-height: 130px;
+    resize: vertical;
+}
+
+/* ============================================
+   CUTE STICKERS (CSS-based)
+   ============================================ */
+.sticker {
+    position: absolute;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.sticker.camera {
+    width: 50px;
+    height: 50px;
+}
+
+.sticker.bow {
+    width: 45px;
+    height: 35px;
+}
+
+.sticker.heart {
+    width: 30px;
+    height: 30px;
+}
+
+.sticker.star {
+    width: 25px;
+    height: 25px;
+}
+
+.sticker.flower {
+    width: 35px;
+    height: 35px;
+}
+
+/* ============================================
+   DATE LABEL TAG
+   ============================================ */
+.date-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    background: var(--paper-white);
+    border: 1px solid #DDD;
+    font-family: var(--font-typewriter);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    box-shadow: var(--shadow-sticker);
+}
+
+/* ============================================
+   TICKET STUB
+   ============================================ */
+.ticket-stub {
+    background: var(--paper-cream);
+    padding: 12px 16px;
+    border-left: 4px dashed var(--kraft-paper);
+    position: relative;
+    font-family: var(--font-typewriter);
+}
+
+.ticket-stub::before,
+.ticket-stub::after {
+    content: '';
+    position: absolute;
+    left: -8px;
+    width: 16px;
+    height: 16px;
+    background: var(--gingham-blue-light);
+    border-radius: 50%;
+}
+
+.ticket-stub::before {
+    top: -8px;
+}
+
+.ticket-stub::after {
+    bottom: -8px;
+}
+
+/* ============================================
+   BINDER CLIP
+   ============================================ */
+.binder-clip {
+    position: absolute;
+    width: 40px;
+    height: 20px;
+    z-index: 15;
+}
+
+/* ============================================
+   SECTION DECORATORS
+   ============================================ */
+.section-title-wrapper {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.section-title-wrapper .label-strip {
+    position: absolute;
+    bottom: -5px;
+    left: -10px;
+    right: -10px;
+    height: 12px;
+    background: var(--sticky-yellow);
+    opacity: 0.7;
+    z-index: -1;
+    transform: rotate(-1deg);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes paper-drop {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px) rotate(-3deg);
+    }
+
+    70% {
+        transform: translateY(5px) rotate(1deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+@keyframes sticker-pop {
+    0% {
+        opacity: 0;
+        transform: scale(0.3) rotate(-15deg);
+    }
+
+    60% {
+        transform: scale(1.1) rotate(3deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes tape-stick {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px) rotate(var(--tape-rotation, 0deg));
+    }
+
+    100% {
+        opacity: 0.85;
+        transform: translateY(0) rotate(var(--tape-rotation, 0deg));
+    }
+}
+
+@keyframes stamp-press {
+    0% {
+        opacity: 0;
+        transform: scale(1.5) rotate(-10deg);
+    }
+
+    50% {
+        transform: scale(0.95) rotate(-5deg);
+    }
+
+    100% {
+        opacity: 0.85;
+        transform: scale(1) rotate(-5deg);
+    }
+}
+
+@keyframes float-gentle {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-8px) rotate(1deg);
+    }
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+@media (max-width: 1024px) {
+    :root {
+        --section-padding: clamp(3rem, 8vw, 5rem);
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --section-padding: clamp(2.5rem, 6vw, 4rem);
+    }
+
+    .scrap-page {
+        padding: 1.5rem;
+        transform: none !important;
+    }
+
+    .side-label {
+        display: none;
+    }
+
+    body {
+        background-size: 100% 100%, 30px 30px, 30px 30px;
+    }
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--gingham-blue-light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--kraft-paper);
+    border-radius: 5px;
+    border: 2px solid var(--gingham-blue-light);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--kraft-dark);
+}
+
+/* ============================================
+   SELECTION
+   ============================================ */
+::selection {
+    background: var(--dusty-pink);
+    color: var(--charcoal);
+}
