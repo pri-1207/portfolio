@@ -237,8 +237,18 @@ export default function Hero() {
             <PolaroidFrame
               caption="— prisha, 2025"
               rotation={4}
-              placeholder="photo goes here"
-            />
+            >
+              <img
+                src="/prisha-photo.jpg"
+                alt="Prisha Gupta"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'center'
+                }}
+              />
+            </PolaroidFrame>
             <WashiTape
               color="peach"
               pattern="gingham"
