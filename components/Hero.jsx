@@ -238,8 +238,10 @@ export default function Hero() {
               caption="— prisha, 2025"
               rotation={4}
             >
+              import prishaPhoto from '/prisha-photo.jpeg';
               <img
                 src="/prisha-photo.jpeg"
+                src={prishaPhoto}
                 alt="Prisha Gupta"
                 style={{
                   width: '100%',
