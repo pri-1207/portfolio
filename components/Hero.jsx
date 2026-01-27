@@ -239,7 +239,7 @@ export default function Hero() {
               rotation={4}
             >
               <img
-                src="/prisha-photo.jpg"
+                src="/prisha-photo.jpeg"
                 alt="Prisha Gupta"
                 style={{
                   width: '100%',
