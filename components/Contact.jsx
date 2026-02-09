@@ -105,7 +105,7 @@ export default function Contact() {
               <div className="card-content">
                 <p className="card-quote">
                   "Open to discussing <em>internships</em>, <em>collaborations</em>,
-                  or just nerding out about <em>LLMs</em> and <em>system design</em>."
+                  or just nerding out about <em>Web Development</em> and <em>Machine Learning</em>."
                 </p>
                 <div className="card-signature">
                   <span>— Prisha Gupta</span>
@@ -120,84 +120,105 @@ export default function Contact() {
       <style jsx>{`
         .contact-layout {
           display: grid;
-          grid-template-columns: 1fr 320px;
-          gap: 3rem;
+          grid-template-columns: 1.2fr 0.8fr;
+          gap: 5rem;
           align-items: center;
         }
 
         .contact-intro {
-          font-size: 1rem;
-          line-height: 1.75;
-          margin-bottom: 1.5rem;
-          max-width: 450px;
-        }
-
-        .contact-intro strong {
-          color: var(--text-primary);
+          font-size: 1.1rem;
+          line-height: 1.8;
+          margin-bottom: 2rem;
+          max-width: 500px;
+          color: var(--text-secondary);
         }
 
         .contact-email {
-          margin-bottom: 1.5rem;
+          margin-bottom: 2.5rem;
         }
 
         .email-label {
           display: block;
-          font-size: 0.7rem;
+          font-size: 0.75rem;
           font-weight: 600;
-          letter-spacing: 0.1em;
+          letter-spacing: 0.12em;
           text-transform: uppercase;
-          color: var(--text-light);
-          margin-bottom: 0.35rem;
+          color: var(--primrose-pink-dark);
+          margin-bottom: 0.5rem;
         }
 
         .email-link {
           font-family: var(--font-heading);
-          font-size: 1.35rem;
+          font-size: 1.75rem;
+          font-weight: 500;
           color: var(--text-primary);
           text-decoration: none;
-          transition: color 0.2s;
+          position: relative;
+          transition: color 0.3s;
+        }
+
+        .email-link::after {
+          content: '';
+          position: absolute;
+          bottom: -4px;
+          left: 0;
+          width: 40px;
+          height: 2px;
+          background: var(--lime);
+          transition: width 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         .email-link:hover {
           color: var(--primrose-pink-dark);
         }
 
+        .email-link:hover::after {
+          width: 100%;
+        }
+
         .contact-links {
           display: flex;
-          gap: 1rem;
+          gap: 1.5rem;
         }
 
         .contact-link {
           display: flex;
           align-items: center;
-          gap: 10px;
-          padding: 12px 18px;
+          gap: 12px;
+          padding: 14px 24px;
           background: white;
-          border-radius: 8px;
+          border-radius: 12px;
           text-decoration: none;
-          box-shadow: var(--shadow-soft);
-          transition: all 0.3s ease;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+          border: 1px solid rgba(232, 180, 184, 0.05);
+          transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         .contact-link:hover {
-          transform: translateY(-2px);
-          box-shadow: var(--shadow-medium);
+          transform: translateY(-5px);
+          box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+          border-color: rgba(168, 198, 159, 0.3);
         }
 
         .contact-link svg {
-          color: var(--text-secondary);
+          color: var(--primrose-pink-dark);
+          transition: transform 0.3s ease;
+        }
+
+        .contact-link:hover svg {
+          transform: scale(1.1) rotate(5deg);
         }
 
         .link-label {
           display: block;
-          font-size: 0.9rem;
-          font-weight: 500;
+          font-size: 0.95rem;
+          font-weight: 600;
           color: var(--text-primary);
         }
 
         .link-username {
           display: block;
-          font-size: 0.75rem;
+          font-size: 0.8rem;
           color: var(--text-light);
         }
 
@@ -208,57 +229,79 @@ export default function Contact() {
 
         .contact-card {
           background: white;
-          border-radius: 10px;
-          padding: 2rem;
-          box-shadow: var(--shadow-card);
+          border-radius: 16px;
+          padding: 2.5rem;
+          box-shadow: 0 20px 60px rgba(232, 180, 184, 0.15);
+          position: relative;
+          border: 1px solid rgba(232, 180, 184, 0.2);
         }
 
         .card-quote {
           font-family: var(--font-heading);
-          font-size: 1.05rem;
+          font-size: 1.15rem;
           font-style: italic;
           color: var(--text-primary);
-          line-height: 1.65;
-          margin-bottom: 1rem;
+          line-height: 1.8;
+          margin-bottom: 2rem;
+          position: relative;
+        }
+
+        .card-quote::before {
+          content: '“';
+          position: absolute;
+          top: -20px;
+          left: -15px;
+          font-size: 3rem;
+          color: var(--pinktone-deep);
+          z-index: -1;
         }
 
         .card-quote em {
           color: var(--primrose-pink-dark);
           font-style: normal;
+          font-weight: 500;
         }
 
         .card-signature {
           display: flex;
           flex-direction: column;
-          gap: 0.15rem;
+          gap: 0.25rem;
         }
 
         .card-signature span:first-child {
           font-family: var(--font-heading);
-          font-size: 0.95rem;
-          color: var(--text-secondary);
+          font-size: 1rem;
+          font-weight: 600;
+          color: var(--text-primary);
         }
 
         .sig-role {
-          font-size: 0.75rem;
+          font-size: 0.8rem;
           color: var(--lime-dark);
-          font-weight: 500;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
         }
 
         @media (max-width: 900px) {
           .contact-layout {
             grid-template-columns: 1fr;
-            gap: 2rem;
+            gap: 4rem;
           }
 
           .contact-card-wrapper {
-            max-width: 360px;
+            max-width: 480px;
+            margin: 0 auto;
           }
         }
 
         @media (max-width: 480px) {
           .contact-links {
             flex-direction: column;
+          }
+
+          .email-link {
+            font-size: 1.35rem;
           }
         }
       `}</style>

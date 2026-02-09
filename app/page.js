@@ -14,6 +14,7 @@ import Leadership from '@/components/Leadership';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import ScrollProgress from '@/components/ScrollProgress';
+import CustomCursor from '@/components/CustomCursor';
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
@@ -48,6 +49,9 @@ export default function Home() {
 
     return (
         <main className="main-wrapper">
+            {/* Custom Cursor */}
+            <CustomCursor />
+
             {/* Scroll progress bar */}
             <ScrollProgress />
 

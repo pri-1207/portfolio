@@ -33,19 +33,19 @@ const leadershipData = [
   {
     role: 'Head, Eclectic Literary Club',
     org: 'IIIT Pune',
-    description: 'Leading club activities, organizing events, and mentoring junior members in creative writing and debate.',
+    description: 'Leading club activities, organizing events and mentoring junior members in creative writing and debate.',
     icon: 'book'
   },
   {
     role: 'Placement Coordinator',
     org: 'IIIT Pune',
-    description: 'Coordinating with companies, managing placement logistics, and supporting fellow students in their placement journey.',
+    description: 'Coordinating with companies, managing placement logistics and supporting fellow students in their placement journey.',
     icon: 'briefcase'
   },
   {
     role: 'Newsletter Lead',
-    org: 'College Magazine',
-    description: 'Managing content, design, and publication of the college newsletter. Leading a team of writers and designers.',
+    org: 'College Newsletter',
+    description: 'Managing content, design and publication of the college newsletter. Leading a team of writers and designers.',
     icon: 'pen'
   }
 ];
@@ -123,7 +123,7 @@ export default function Leadership() {
             </div>
 
             <div className="quote-card lead-animate">
-              <p>"Great engineers combine technical depth with strong communication and leadership."</p>
+              <p>"Growing as an engineer and a professional everyday"</p>
               <span className="quote-author">— Prisha</span>
             </div>
           </div>

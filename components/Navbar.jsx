@@ -98,21 +98,22 @@ export default function Navbar() {
           left: 0;
           right: 0;
           z-index: 1000;
-          padding: 1rem 0;
-          transition: all 0.3s ease;
+          padding: 1.5rem 0;
+          transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         .navbar.scrolled {
-          background: rgba(253, 252, 250, 0.95);
-          backdrop-filter: blur(10px);
-          padding: 0.75rem 0;
-          box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+          background: rgba(253, 252, 250, 0.85);
+          backdrop-filter: blur(15px);
+          padding: 1rem 0;
+          box-shadow: 0 1px 12px rgba(45, 41, 38, 0.03);
+          border-bottom: 1px solid rgba(232, 180, 184, 0.1);
         }
 
         .nav-container {
           max-width: 1100px;
           margin: 0 auto;
-          padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+          padding: 0 clamp(1.5rem, 5vw, 3rem);
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -121,27 +122,39 @@ export default function Navbar() {
         .nav-logo {
           display: flex;
           align-items: center;
-          gap: 5px;
+          gap: 6px;
           text-decoration: none;
+          transition: transform 0.3s ease;
+        }
+
+        .nav-logo:hover {
+          transform: scale(1.05);
         }
 
         .logo-text {
           font-family: var(--font-heading);
-          font-size: 1.3rem;
+          font-size: 1.4rem;
           font-weight: 600;
           color: var(--text-primary);
+          letter-spacing: -0.02em;
         }
 
         .logo-dot {
-          width: 7px;
-          height: 7px;
+          width: 8px;
+          height: 8px;
           background: var(--primrose-pink);
           border-radius: 50%;
+          transition: transform 0.3s ease;
+        }
+
+        .nav-logo:hover .logo-dot {
+          transform: scale(1.5);
+          background: var(--lime);
         }
 
         .nav-links {
           display: flex;
-          gap: 2rem;
+          gap: 2.5rem;
         }
 
         .nav-link {
@@ -150,14 +163,15 @@ export default function Navbar() {
           font-weight: 500;
           color: var(--text-secondary);
           text-decoration: none;
-          transition: color 0.2s ease;
+          transition: color 0.3s ease;
           position: relative;
+          letter-spacing: 0.01em;
         }
 
         .nav-link::after {
           content: '';
           position: absolute;
-          bottom: -3px;
+          bottom: -4px;
           left: 0;
           width: 0;
           height: 2px;
@@ -176,20 +190,23 @@ export default function Navbar() {
         .nav-resume {
           display: flex;
           align-items: center;
-          gap: 5px;
-          padding: 8px 16px;
+          gap: 6px;
+          padding: 10px 20px;
           font-family: var(--font-body);
           font-size: 0.8rem;
-          font-weight: 500;
+          font-weight: 600;
           color: var(--text-primary);
-          background: var(--primrose-pink-light);
-          border-radius: 4px;
+          background: white;
+          border: 1px solid rgba(232, 180, 184, 0.3);
+          border-radius: 6px;
           text-decoration: none;
-          transition: all 0.2s ease;
+          transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .nav-resume:hover {
-          background: var(--primrose-pink);
+          background: var(--primrose-pink-light);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(232, 180, 184, 0.15);
         }
 
         .mobile-toggle {
@@ -202,7 +219,7 @@ export default function Navbar() {
 
         .hamburger {
           display: block;
-          width: 22px;
+          width: 20px;
           height: 2px;
           background: var(--text-primary);
           position: relative;
@@ -276,7 +293,7 @@ export default function Navbar() {
           font-weight: 500;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
           .nav-links,
           .nav-resume {
             display: none;

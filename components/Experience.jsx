@@ -11,7 +11,7 @@ const experienceData = [
     role: 'Software Engineering Intern',
     company: 'Tech Startup',
     period: 'Summer 2025',
-    description: 'Developed RAG-based document search features, improving query accuracy by 40%. Built internal tools using Python, FastAPI, and React.',
+    description: 'Developed RAG-based document search features, improving query accuracy by 40%. Built internal tools using Python, FastAPI and React.',
     highlights: ['RAG Systems', 'Python', 'FastAPI']
   },
   {
@@ -25,7 +25,7 @@ const experienceData = [
     role: 'Full Stack Developer',
     company: 'Freelance',
     period: '2023 - 2024',
-    description: 'Delivered 5+ client projects including e-commerce platforms, portfolio websites, and custom web applications.',
+    description: 'Delivered 5+ client projects including e-commerce platforms, portfolio websites and custom web applications.',
     highlights: ['Next.js', 'Node.js', 'PostgreSQL']
   }
 ];
@@ -104,8 +104,8 @@ export default function Experience() {
 
         .exp-layout {
           display: grid;
-          grid-template-columns: 280px 1fr;
-          gap: 4rem;
+          grid-template-columns: 320px 1fr;
+          gap: 5rem;
         }
 
         .exp-header {
@@ -122,72 +122,98 @@ export default function Experience() {
 
         .exp-item {
           display: flex;
-          gap: 1.5rem;
-          padding-bottom: 2.5rem;
+          gap: 2.5rem;
+          padding-bottom: 3.5rem;
+          position: relative;
         }
 
         .exp-marker {
           display: flex;
           flex-direction: column;
           align-items: center;
-          padding-top: 6px;
+          padding-top: 10px;
         }
 
         .marker-dot {
-          width: 12px;
-          height: 12px;
+          width: 14px;
+          height: 14px;
           background: var(--primrose-pink);
+          border: 3px solid white;
+          box-shadow: 0 0 0 1px var(--primrose-pink-light);
           border-radius: 50%;
           flex-shrink: 0;
+          z-index: 2;
+          transition: all 0.3s ease;
+        }
+
+        .exp-item:hover .marker-dot {
+          transform: scale(1.3);
+          background: var(--primrose-pink-dark);
         }
 
         .marker-line {
           width: 2px;
           flex: 1;
-          background: var(--pinktone-deep);
+          background: linear-gradient(to bottom, var(--pinktone-deep), transparent);
           margin-top: 8px;
+          opacity: 0.6;
         }
 
         .exp-content {
           flex: 1;
-          padding-bottom: 1rem;
+          padding: 1.5rem;
+          background: white;
+          border-radius: 12px;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+          border: 1px solid rgba(232, 180, 184, 0.05);
+          transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .exp-content:hover {
+          transform: translateX(10px);
+          box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+          border-color: rgba(232, 180, 184, 0.2);
         }
 
         .exp-meta {
           display: flex;
           align-items: center;
-          gap: 1rem;
-          margin-bottom: 0.5rem;
+          justify-content: space-between;
+          margin-bottom: 0.75rem;
         }
 
         .exp-period {
           font-family: var(--font-body);
           font-size: 0.75rem;
-          font-weight: 500;
+          font-weight: 600;
           color: var(--primrose-pink-dark);
           text-transform: uppercase;
-          letter-spacing: 0.08em;
+          letter-spacing: 0.1em;
         }
 
         .exp-company {
           font-family: var(--font-body);
-          font-size: 0.85rem;
+          font-size: 0.8rem;
+          font-weight: 500;
           color: var(--text-light);
+          padding: 2px 8px;
+          background: var(--yucca-warm);
+          border-radius: 4px;
         }
 
         .exp-role {
           font-family: var(--font-heading);
-          font-size: 1.3rem;
-          font-weight: 500;
+          font-size: 1.4rem;
+          font-weight: 600;
           color: var(--text-primary);
           margin-bottom: 0.75rem;
         }
 
         .exp-desc {
-          font-size: 0.95rem;
+          font-size: 0.9rem;
           color: var(--text-secondary);
-          line-height: 1.75;
-          margin-bottom: 1rem;
+          line-height: 1.7;
+          margin-bottom: 1.25rem;
         }
 
         .exp-tags {
@@ -196,7 +222,7 @@ export default function Experience() {
           gap: 0.5rem;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
           .exp-layout {
             grid-template-columns: 1fr;
             gap: 2rem;
@@ -204,6 +230,10 @@ export default function Experience() {
 
           .exp-header {
             position: static;
+          }
+
+          .exp-item {
+            gap: 1.5rem;
           }
         }
       `}</style>
