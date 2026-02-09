@@ -1,15 +1,21 @@
 import './globals.css';
 
 export const metadata = {
-    title: 'Prisha Gupta | Software Engineering Student',
-    description: 'Portfolio of Prisha Gupta - Software Engineering Student specializing in AI, Full-Stack Development, and LLM Applications. Building systems that feel smart and simple.',
-    keywords: ['Prisha Gupta', 'Software Engineer', 'AI', 'Machine Learning', 'Full Stack Developer', 'LLM', 'Portfolio'],
+    title: 'Prisha Gupta | Software Engineer',
+    description: 'Portfolio of Prisha Gupta - Software Engineering Student at IIIT Pune. Building intelligent systems that feel simple. AI, Full-Stack, LLM Applications.',
+    keywords: ['Prisha Gupta', 'Software Engineer', 'Portfolio', 'AI', 'Machine Learning', 'Full Stack Developer'],
     authors: [{ name: 'Prisha Gupta' }],
     openGraph: {
-        title: 'Prisha Gupta | Software Engineering Student',
-        description: 'Building systems that feel smart and simple at the same time.',
+        title: 'Prisha Gupta | Software Engineer',
+        description: 'Building intelligent systems that feel simple.',
         type: 'website',
     },
+};
+
+export const viewport = {
+    width: 'device-width',
+    initialScale: 1,
+    themeColor: '#FDFCFA',
 };
 
 export default function RootLayout({ children }) {
@@ -18,8 +24,7 @@ export default function RootLayout({ children }) {
             <head>
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <meta name="theme-color" content="#F6F1E8" />
+                <link rel="icon" href="/icon.svg" type="image/svg+xml" />
             </head>
             <body>
                 {children}

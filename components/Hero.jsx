@@ -1,508 +1,619 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import {
-  ScrapPageCard,
-  WashiTape,
-  PolaroidFrame,
-  PaperClip,
-  StickyNote,
-  DateTag,
-  CameraSticker,
-  BowSticker,
-  StarSticker,
-  FlowerSticker,
-  HeartSticker
-} from './scrapbook';
-
-// Icons
-const ArrowIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <line x1="5" y1="12" x2="19" y2="12" />
-    <polyline points="12 5 19 12 12 19" />
-  </svg>
-);
-
-const DownloadIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-    <polyline points="7 10 12 15 17 10" />
-    <line x1="12" y1="15" x2="12" y2="3" />
-  </svg>
-);
-
-const MailIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-    <polyline points="22,6 12,13 2,6" />
-  </svg>
-);
 
 export default function Hero() {
   const heroRef = useRef(null);
+  const [currentWord, setCurrentWord] = useState(0);
+  const words = ['LLMs', 'ML Systems', 'Full Stack', 'AI'];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Initial setup
-      gsap.set('.hero-element', { opacity: 0, y: 40 });
-      gsap.set('.hero-polaroid', { opacity: 0, scale: 0.8, rotation: -15 });
-      gsap.set('.hero-sticker', { opacity: 0, scale: 0 });
-      gsap.set('.hero-tape', { opacity: 0, y: -20 });
-      gsap.set('.hero-sticky', { opacity: 0, scale: 0.8, rotation: -10 });
+      // Initial states
+      gsap.set('.hero-animate', { opacity: 0, y: 25 });
+      gsap.set('.photo-frame', { opacity: 0, scale: 0.95, rotation: -2 });
+      gsap.set('.letter', { opacity: 0, y: 50, rotationX: -90 });
+      gsap.set('.name-highlight', { width: 0 });
 
-      // Main timeline
-      const tl = gsap.timeline({ delay: 0.3 });
+      const tl = gsap.timeline({ delay: 0.2 });
 
-      // Main page drops in
-      tl.to('.hero-main-card', {
+      // Animate letters one by one
+      tl.to('.letter', {
         opacity: 1,
         y: 0,
-        duration: 0.8,
-        ease: 'power3.out'
+        rotationX: 0,
+        duration: 0.6,
+        stagger: 0.03,
+        ease: 'back.out(1.7)'
       })
-        // Washi tapes stick down
-        .to('.hero-tape', {
-          opacity: 0.85,
-          y: 0,
-          duration: 0.4,
-          stagger: 0.1,
-          ease: 'power2.out'
-        }, '-=0.4')
-        // Title appears
-        .to('.hero-title', {
-          opacity: 1,
-          y: 0,
+        // Highlight underline grows
+        .to('.name-highlight', {
+          width: '100%',
           duration: 0.6,
           ease: 'power2.out'
-        }, '-=0.2')
-        // Subtitle
-        .to('.hero-subtitle', {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          ease: 'power2.out'
         }, '-=0.3')
-        // Date tag
-        .to('.hero-date', {
-          opacity: 1,
-          y: 0,
-          duration: 0.4,
-          ease: 'power2.out'
-        }, '-=0.2')
-        // Microcopy sticky note
-        .to('.hero-sticky', {
-          opacity: 1,
-          scale: 1,
-          rotation: -2,
-          duration: 0.6,
-          ease: 'back.out(1.5)'
-        }, '-=0.2')
-        // Buttons
-        .to('.hero-buttons', {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          ease: 'power2.out'
-        }, '-=0.3')
-        // Polaroid slides in
-        .to('.hero-polaroid', {
-          opacity: 1,
-          scale: 1,
-          rotation: 3,
-          duration: 0.7,
-          ease: 'power3.out'
-        }, '-=0.4')
-        // Stickers pop in
-        .to('.hero-sticker', {
-          opacity: 1,
-          scale: 1,
-          duration: 0.5,
-          stagger: 0.1,
-          ease: 'back.out(2)'
-        }, '-=0.3');
+        // Photo appears
+        .to('.photo-frame', { opacity: 1, scale: 1, rotation: 2, duration: 0.8, ease: 'power2.out' }, '-=0.4')
+        // Other content
+        .to('.hero-role', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.5')
+        .to('.typing-container', { opacity: 1, y: 0, duration: 0.4 }, '-=0.3')
+        .to('.hero-desc', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.2')
+        .to('.hero-tags', { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '-=0.2')
+        .to('.hero-buttons', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.2');
 
     }, heroRef);
 
     return () => ctx.revert();
   }, []);
 
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+  // Typing animation - cycle through words
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentWord((prev) => (prev + 1) % words.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Split text into letters
+  const splitText = (text) => {
+    return text.split('').map((char, i) => (
+      <span key={i} className="letter" style={{ display: 'inline-block' }}>
+        {char === ' ' ? '\u00A0' : char}
+      </span>
+    ));
   };
 
   return (
-    <section ref={heroRef} id="hero" className="hero-section">
+    <section ref={heroRef} id="hero" className="hero">
+      {/* Floating decorative elements */}
+      <div className="floating-elements">
+        <div className="float-circle circle-1"></div>
+        <div className="float-circle circle-2"></div>
+        <div className="float-star star-1">✦</div>
+        <div className="float-star star-2">✦</div>
+        <div className="float-star star-3">◇</div>
+      </div>
+
       <div className="hero-container">
-        {/* Main Scrap Page */}
-        <div className="hero-main-card hero-element">
-          <ScrapPageCard variant="cream" rotation={-0.5}>
-            {/* Washi Tape Decorations */}
-            <WashiTape
-              color="pink"
-              pattern="polka"
-              direction="diagonal-left"
-              style={{ top: '-10px', left: '20px' }}
-              className="hero-tape"
-            />
-            <WashiTape
-              color="mint"
-              pattern="striped"
-              direction="diagonal-right"
-              style={{ top: '-10px', right: '30px' }}
-              className="hero-tape"
-            />
+        {/* Content */}
+        <div className="hero-content">
+          {/* Animated Title */}
+          <h1 className="hero-title">
+            <span className="title-line">
+              {splitText("Hi, I'm")}
+            </span>
+            <span className="name-wrapper">
+              <span className="name-text">
+                {splitText("Prisha ")}
+                <span className="name-accent">
+                  {splitText("Gupta")}
+                </span>
+              </span>
+              <span className="name-highlight"></span>
+            </span>
+          </h1>
 
-            {/* Paper Clip */}
-            <PaperClip color="gold" rotation={15} style={{ top: '-20px', right: '120px' }} />
+          <p className="hero-role hero-animate">
+            <span className="role-icon">◆</span>
+            Software Engineering Student @ IIIT Pune
+          </p>
 
-            {/* Date Tag */}
-            <div className="hero-date hero-element" style={{ marginBottom: '1.5rem' }}>
-              <DateTag date="January 2026" />
-            </div>
-
-            {/* Title - Magazine cut-out style */}
-            <h1 className="hero-title hero-element">
-              <span className="title-highlight">Prisha</span> Gupta
-            </h1>
-
-            {/* Subtitle with label strip */}
-            <div className="hero-subtitle hero-element">
-              <span className="subtitle-text">Software Engineering Student</span>
-              <div className="subtitle-tags">
-                <span className="tag">AI</span>
-                <span className="tag-dot"></span>
-                <span className="tag">Full Stack</span>
-                <span className="tag-dot"></span>
-                <span className="tag">LLMs</span>
-              </div>
-            </div>
-
-            {/* Location */}
-            <p className="hero-location hero-element">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-              Pune, India
-            </p>
-
-            {/* Sticky Note with Microcopy */}
-            <div className="hero-sticky-wrapper">
-              <StickyNote color="yellow" rotation={-2} className="hero-sticky">
-                <p className="sticky-text">
-                  I like building systems that feel smart and simple at the same time —
-                  from LLM-powered document search to full-stack apps that actually ship.
-                </p>
-                <span className="sticky-signature">— Prisha</span>
-              </StickyNote>
-            </div>
-
-            {/* Buttons */}
-            <div className="hero-buttons hero-element">
-              <button
-                className="btn btn-primary"
-                onClick={() => scrollToSection('projects')}
-              >
-                <span>View Projects</span>
-                <ArrowIcon />
-              </button>
-              <a href="/Prisha_Gupta_Resume.pdf" className="btn btn-secondary" download>
-                <DownloadIcon />
-                <span>Resume</span>
-              </a>
-              <button
-                className="btn btn-kraft"
-                onClick={() => scrollToSection('contact')}
-              >
-                <MailIcon />
-                <span>Contact</span>
-              </button>
-            </div>
-
-            {/* Side Label */}
-            <div className="side-label" style={{ left: '-30px', top: '50%' }}>
-              PORTFOLIO
-            </div>
-          </ScrapPageCard>
-        </div>
-
-        {/* Right Column - Polaroid + Stickers */}
-        <div className="hero-right">
-          {/* Polaroid */}
-          <div className="hero-polaroid">
-            <PolaroidFrame
-              caption="— prisha, 2025"
-              rotation={4}
-            >
-              <img
-                src="/prisha-photo.jpeg"
-                alt="Prisha Gupta"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  objectPosition: 'center'
-                }}
-              />
-            </PolaroidFrame>
-            <WashiTape
-              color="peach"
-              pattern="gingham"
-              direction="slight-left"
-              style={{ top: '-8px', left: '50%', transform: 'translateX(-50%) rotate(-5deg)' }}
-              className="hero-tape"
-            />
+          {/* Dynamic typing text */}
+          <div className="typing-container hero-animate">
+            <span className="typing-label">Currently exploring</span>
+            <span className="typing-text" key={currentWord}>
+              <span className="typing-word">{words[currentWord]}</span>
+              <span className="cursor">|</span>
+            </span>
           </div>
 
-          {/* Quick Facts Sticky */}
-          <StickyNote color="pink" rotation={3} className="hero-sticky quick-facts" style={{ marginTop: '1.5rem' }}>
-            <h4 className="facts-title">Quick Facts</h4>
-            <ul className="facts-list">
-              <li>IIIT Pune, CSE</li>
-              <li>Building RAG systems</li>
-              <li>Full-stack enthusiast</li>
-            </ul>
-          </StickyNote>
+          <p className="hero-desc hero-animate">
+            Building <span className="highlight-word">intelligent systems</span> with a focus on
+            <strong> machine learning</strong> and <strong>full-stack development</strong>.
+            I love solving complex problems with clean, efficient code.
+          </p>
 
-          {/* Decorative Stickers */}
-          <CameraSticker style={{ top: '10px', right: '-20px' }} size={45} className="hero-sticker" />
-          <BowSticker style={{ bottom: '80px', left: '-30px' }} color="#D4A5A5" size={40} className="hero-sticker" />
-          <StarSticker style={{ top: '180px', right: '-10px' }} color="#D4A94B" size={22} className="hero-sticker" />
-          <FlowerSticker style={{ bottom: '20px', right: '30px' }} size={30} className="hero-sticker" />
-          <HeartSticker style={{ top: '280px', left: '-15px' }} color="#D4A5A5" size={24} className="hero-sticker" />
+          <div className="hero-tags hero-animate">
+            <span className="tag lime interactive">DSA</span>
+            <span className="tag lime interactive">LLM Systems</span>
+            <span className="tag lime interactive">Full Stack</span>
+            <span className="tag lime interactive">ML/AI</span>
+          </div>
+
+          <div className="hero-buttons hero-animate">
+            <a href="#projects" className="btn btn-primary magnetic">
+              <span>View Projects</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+            <a href="/Prisha_Gupta_Resume.pdf" className="btn btn-outline magnetic" download>
+              <span>Resume</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        {/* Photo with Washi Tape */}
+        <div className="hero-visual">
+          <div className="photo-frame">
+            <div className="washi-tape"></div>
+            <div className="photo-inner">
+              <img src="/prisha-photo.jpeg" alt="Prisha Gupta" />
+            </div>
+            <p className="photo-caption">— prisha ✦</p>
+          </div>
         </div>
       </div>
 
       <style jsx>{`
-        .hero-section {
+        .hero {
           min-height: 100vh;
           display: flex;
           align-items: center;
-          padding: 6rem 0 4rem;
+          padding: 5rem 0 3rem;
           position: relative;
           overflow: hidden;
         }
 
+        /* Floating decorative elements */
+        .floating-elements {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          overflow: hidden;
+        }
+
+        .float-circle {
+          position: absolute;
+          border-radius: 50%;
+          opacity: 0.4;
+        }
+
+        .circle-1 {
+          width: 300px;
+          height: 300px;
+          background: radial-gradient(circle, var(--primrose-pink-light) 0%, transparent 70%);
+          top: 10%;
+          right: -100px;
+          animation: float-slow 20s ease-in-out infinite;
+        }
+
+        .circle-2 {
+          width: 200px;
+          height: 200px;
+          background: radial-gradient(circle, var(--lime-light) 0%, transparent 70%);
+          bottom: 20%;
+          left: -50px;
+          animation: float-slow 25s ease-in-out infinite reverse;
+        }
+
+        .float-star {
+          position: absolute;
+          color: var(--primrose-pink);
+          opacity: 0.6;
+          animation: twinkle 3s ease-in-out infinite;
+        }
+
+        .star-1 {
+          top: 20%;
+          left: 15%;
+          font-size: 1.2rem;
+        }
+
+        .star-2 {
+          bottom: 30%;
+          right: 20%;
+          font-size: 1rem;
+          animation-delay: 1.5s;
+        }
+
+        .star-3 {
+          top: 60%;
+          left: 8%;
+          font-size: 0.9rem;
+          color: var(--lime);
+          animation-delay: 0.8s;
+        }
+
+        @keyframes float-slow {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(30px, -30px) scale(1.05); }
+        }
+
+        @keyframes twinkle {
+          0%, 100% { opacity: 0.3; transform: scale(1) rotate(0deg); }
+          50% { opacity: 0.8; transform: scale(1.3) rotate(15deg); }
+        }
+
         .hero-container {
-          max-width: 1300px;
+          max-width: 1100px;
           width: 100%;
           margin: 0 auto;
-          padding: 0 clamp(1.5rem, 4vw, 3rem);
+          padding: 0 clamp(1.25rem, 4vw, 2.5rem);
           display: grid;
-          grid-template-columns: 1fr 320px;
+          grid-template-columns: 1fr 300px;
           gap: 3rem;
           align-items: center;
-        }
-
-        .hero-main-card :global(.scrap-page-card) {
-          padding: 3rem;
-        }
-
-        .hero-title {
-          font-family: var(--font-title);
-          font-size: clamp(3rem, 8vw, 5rem);
-          color: var(--charcoal);
-          margin-bottom: 0.75rem;
-          line-height: 1.1;
-        }
-
-        .title-highlight {
           position: relative;
-          display: inline-block;
+          z-index: 1;
         }
 
-        .title-highlight::after {
-          content: '';
-          position: absolute;
-          bottom: 5px;
-          left: -5px;
-          right: -5px;
-          height: 15px;
-          background: var(--sticky-yellow);
-          opacity: 0.6;
-          z-index: -1;
-          transform: rotate(-1deg);
+        .hero-content {
+          max-width: 520px;
         }
 
-        .hero-subtitle {
-          margin-bottom: 1rem;
+        /* ===== DYNAMIC TYPOGRAPHY ===== */
+        .hero-title {
+          font-size: clamp(2rem, 5vw, 3rem);
+          line-height: 1.2;
+          margin-bottom: 0.75rem;
         }
 
-        .subtitle-text {
-          font-family: var(--font-typewriter);
-          font-size: 1.1rem;
-          color: var(--cocoa);
+        .title-line {
           display: block;
-          margin-bottom: 0.5rem;
+          margin-bottom: 0.25rem;
         }
 
-        .subtitle-tags {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
+        .letter {
+          display: inline-block;
+          transform-origin: bottom center;
         }
 
-        .tag {
-          font-family: var(--font-accent);
-          font-size: 0.9rem;
-          font-weight: 600;
-          color: var(--muted-red);
+        .name-wrapper {
+          display: inline-block;
+          position: relative;
         }
 
-        .tag-dot {
-          width: 5px;
-          height: 5px;
-          background: var(--kraft-paper);
-          border-radius: 50%;
+        .name-text {
+          display: block;
+          position: relative;
+          z-index: 2;
         }
 
-        .hero-location {
+        .name-accent {
+          font-style: italic;
+          color: var(--primrose-pink-dark);
+          position: relative;
+        }
+
+        .name-accent .letter {
+          animation: wave 2.5s ease-in-out infinite;
+          animation-delay: calc(var(--i, 0) * 0.1s);
+        }
+
+        .name-accent .letter:nth-child(1) { --i: 0; }
+        .name-accent .letter:nth-child(2) { --i: 1; }
+        .name-accent .letter:nth-child(3) { --i: 2; }
+        .name-accent .letter:nth-child(4) { --i: 3; }
+        .name-accent .letter:nth-child(5) { --i: 4; }
+
+        @keyframes wave {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-4px); }
+        }
+
+        .name-highlight {
+          position: absolute;
+          bottom: 2px;
+          left: 0;
+          height: 8px;
+          background: linear-gradient(90deg, var(--lime-light) 0%, var(--lime) 100%);
+          border-radius: 4px;
+          z-index: 1;
+          opacity: 0.5;
+        }
+
+        .hero-role {
+          font-size: 1.05rem;
+          font-weight: 500;
+          color: var(--text-secondary);
+          margin-bottom: 0.75rem;
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          font-family: var(--font-body);
-          font-size: 0.9rem;
-          color: var(--text-muted);
+        }
+
+        .role-icon {
+          color: var(--lime);
+          font-size: 0.6rem;
+          animation: pulse-icon 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-icon {
+          0%, 100% { transform: scale(1); opacity: 0.7; }
+          50% { transform: scale(1.3); opacity: 1; }
+        }
+
+        /* Dynamic typing */
+        .typing-container {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          margin-bottom: 1.25rem;
+          flex-wrap: wrap;
+        }
+
+        .typing-label {
+          font-size: 0.85rem;
+          color: var(--text-light);
+        }
+
+        .typing-text {
+          font-family: var(--font-heading);
+          font-size: 1.1rem;
+          font-weight: 500;
+          color: var(--lime-dark);
+          padding: 4px 12px;
+          background: var(--lime-light);
+          border-radius: 4px;
+          display: inline-flex;
+          align-items: center;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .typing-word {
+          animation: typeIn 0.5s ease-out;
+        }
+
+        @keyframes typeIn {
+          0% { 
+            opacity: 0; 
+            transform: translateY(10px) rotateX(-20deg); 
+            filter: blur(3px);
+          }
+          100% { 
+            opacity: 1; 
+            transform: translateY(0) rotateX(0); 
+            filter: blur(0);
+          }
+        }
+
+        .cursor {
+          margin-left: 2px;
+          animation: blink 1s step-end infinite;
+          color: var(--lime-dark);
+        }
+
+        @keyframes blink {
+          0%, 50% { opacity: 1; }
+          51%, 100% { opacity: 0; }
+        }
+
+        .hero-desc {
+          font-size: 0.95rem;
+          line-height: 1.75;
+          color: var(--text-secondary);
+          margin-bottom: 1.25rem;
+          max-width: 440px;
+        }
+
+        .hero-desc strong {
+          color: var(--text-primary);
+          font-weight: 500;
+        }
+
+        .highlight-word {
+          color: var(--primrose-pink-dark);
+          font-weight: 500;
+          position: relative;
+        }
+
+        .highlight-word::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background: var(--primrose-pink);
+          transform: scaleX(0);
+          transform-origin: right;
+          animation: underline-grow 3s ease-in-out infinite;
+        }
+
+        @keyframes underline-grow {
+          0%, 100% { transform: scaleX(0); transform-origin: right; }
+          50% { transform: scaleX(1); transform-origin: left; }
+        }
+
+        .hero-tags {
+          display: flex;
+          gap: 0.5rem;
+          flex-wrap: wrap;
           margin-bottom: 1.5rem;
         }
 
-        .hero-sticky-wrapper {
-          margin-bottom: 2rem;
-          max-width: 450px;
+        .tag.interactive {
+          cursor: default;
+          transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .sticky-text {
-          font-family: var(--font-body);
-          font-size: 0.95rem;
-          line-height: 1.7;
-          color: var(--charcoal);
-          margin-bottom: 0.5rem;
-        }
-
-        .sticky-signature {
-          font-family: var(--font-typewriter);
-          font-size: 0.8rem;
-          color: var(--text-muted);
-          display: block;
-          text-align: right;
+        .tag.interactive:hover {
+          transform: translateY(-3px) scale(1.05);
+          box-shadow: 0 4px 12px rgba(168, 198, 159, 0.3);
         }
 
         .hero-buttons {
           display: flex;
-          flex-wrap: wrap;
-          gap: 1rem;
+          gap: 0.75rem;
         }
 
-        .hero-right {
-          position: relative;
-          padding: 2rem;
-        }
-
-        .hero-polaroid {
+        .btn.magnetic {
+          transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          overflow: hidden;
           position: relative;
         }
 
-        .hero-polaroid :global(.polaroid-frame) {
+        .btn.magnetic::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
           width: 100%;
-          max-width: 280px;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+          transition: none;
         }
 
-        .hero-polaroid :global(.photo-area) {
-          height: 280px;
+        .btn.magnetic:hover::before {
+          animation: btn-shimmer 0.6s ease-out;
         }
 
-        .quick-facts {
-          max-width: 200px;
+        @keyframes btn-shimmer {
+          0% { left: -100%; }
+          100% { left: 100%; }
         }
 
-        .facts-title {
-          font-family: var(--font-typewriter);
-          font-size: 0.85rem;
-          font-weight: 700;
-          color: var(--charcoal);
-          margin-bottom: 0.5rem;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
+        .btn.magnetic:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(0,0,0,0.12);
         }
 
-        .facts-list {
-          list-style: none;
-          padding: 0;
-          margin: 0;
+        .hero-visual {
+          display: flex;
+          justify-content: center;
         }
 
-        .facts-list li {
-          font-family: var(--font-body);
-          font-size: 0.85rem;
-          color: var(--cocoa);
-          padding: 3px 0;
+        /* Photo Frame */
+        .photo-frame {
           position: relative;
-          padding-left: 12px;
+          background: white;
+          padding: 12px;
+          padding-bottom: 40px;
+          border-radius: 4px;
+          box-shadow: 
+            0 4px 20px rgba(0,0,0,0.08),
+            0 8px 40px rgba(0,0,0,0.06);
+          transform: rotate(2deg);
+          transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .facts-list li::before {
-          content: '♦';
-          position: absolute;
-          left: 0;
-          color: var(--dusty-pink);
-          font-size: 0.6rem;
+        .photo-frame:hover {
+          transform: rotate(0deg) scale(1.02);
         }
 
-        .side-label {
+        .washi-tape {
           position: absolute;
-          writing-mode: vertical-rl;
-          text-orientation: mixed;
-          font-family: var(--font-typewriter);
-          font-size: 0.65rem;
-          letter-spacing: 0.15em;
-          text-transform: uppercase;
-          color: var(--text-muted);
+          top: -10px;
+          left: 50%;
+          transform: translateX(-50%) rotate(-4deg);
+          width: 80px;
+          height: 28px;
+          background: linear-gradient(
+            90deg,
+            rgba(168, 198, 159, 0.85) 0%,
+            rgba(184, 212, 175, 0.9) 50%,
+            rgba(168, 198, 159, 0.85) 100%
+          );
+          border-radius: 1px;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+          z-index: 10;
+        }
+
+        .washi-tape::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: 
+            repeating-linear-gradient(
+              90deg,
+              transparent 0px,
+              transparent 4px,
+              rgba(255,255,255,0.3) 4px,
+              rgba(255,255,255,0.3) 5px
+            );
           opacity: 0.5;
         }
 
-        @media (max-width: 1024px) {
+        .photo-inner {
+          border-radius: 2px;
+          overflow: hidden;
+        }
+
+        .photo-inner img {
+          width: 240px;
+          height: 280px;
+          object-fit: cover;
+          display: block;
+          transition: transform 0.5s ease;
+        }
+
+        .photo-frame:hover .photo-inner img {
+          transform: scale(1.02);
+        }
+
+        .photo-caption {
+          position: absolute;
+          bottom: 12px;
+          left: 0;
+          right: 0;
+          text-align: center;
+          font-family: var(--font-heading);
+          font-style: italic;
+          font-size: 0.9rem;
+          color: var(--text-light);
+        }
+
+        @media (max-width: 900px) {
           .hero-container {
             grid-template-columns: 1fr;
-            gap: 2rem;
+            gap: 2.5rem;
+            text-align: center;
           }
 
-          .hero-right {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
+          .hero-content {
+            max-width: 100%;
+            order: 2;
+          }
+
+          .hero-visual {
+            order: 1;
+          }
+
+          .hero-desc {
+            max-width: 100%;
+          }
+
+          .hero-role {
             justify-content: center;
-            padding: 1rem;
           }
 
-          .hero-polaroid :global(.polaroid-frame) {
-            max-width: 240px;
+          .hero-buttons, .hero-tags {
+            justify-content: center;
           }
 
-          .quick-facts {
-            margin-top: 0;
+          .typing-container {
+            justify-content: center;
+          }
+
+          .photo-inner img {
+            width: 200px;
+            height: 240px;
+          }
+
+          .float-circle {
+            opacity: 0.2;
           }
         }
 
-        @media (max-width: 768px) {
-          .hero-section {
-            padding: 5rem 0 3rem;
-          }
-
+        @media (max-width: 480px) {
           .hero-buttons {
             flex-direction: column;
+            width: 100%;
           }
 
           .hero-buttons .btn {
-            width: 100%;
             justify-content: center;
           }
 
-          .hero-right :global(.sticker) {
-            display: none;
+          .photo-inner img {
+            width: 180px;
+            height: 220px;
           }
         }
       `}</style>

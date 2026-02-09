@@ -7,59 +7,58 @@ module.exports = {
     ],
     theme: {
         extend: {
+            /* STRICT COLOR PALETTE - Only these colors */
             colors: {
-                // Primary Colors - Warm & Contrasting
-                parchment: '#F6F1E8',
-                'blush-paper': '#FBE9E7',
-                cream: '#FFF7F0',
-                'cream-dark': '#F5EDE4',
-
-                // Accent Colors - Muted but Poppy
-                cherry: '#B44B4B',
-                'cherry-dark': '#943D3D',
-                terracotta: '#C07050',
-                'terracotta-light': '#D4896D',
-                'dusty-rose': '#C98B8B',
-                sage: '#8BA888',
-                'sage-light': '#A5C4A1',
-                golden: '#D4A574',
-                'golden-light': '#E5C49D',
-
-                // Text Colors
-                espresso: '#2A1F1F',
-                'espresso-light': '#4A3F3F',
-                'espresso-muted': '#6A5F5F',
+                // Primrose Garden Pink
+                'primrose': {
+                    DEFAULT: '#E8B4B8',
+                    light: '#F0C8CB',
+                    dark: '#D49599',
+                },
+                // Pinktone
+                'pinktone': {
+                    DEFAULT: '#FDF0F0',
+                    deep: '#FAE3E3',
+                },
+                // Lime Lollipop
+                'lime': {
+                    DEFAULT: '#A8C69F',
+                    light: '#C4D9BC',
+                    dark: '#8FB085',
+                },
+                // Yucca White (Background)
+                'yucca': {
+                    DEFAULT: '#FDFCFA',
+                    warm: '#FAF8F5',
+                },
+                // Text colors (neutral, derived)
+                'text': {
+                    primary: '#2D2926',
+                    secondary: '#5C5552',
+                    light: '#8A8582',
+                },
             },
             fontFamily: {
-                display: ['"DM Serif Display"', '"Playfair Display"', 'Georgia', 'serif'],
                 heading: ['"Playfair Display"', 'Georgia', 'serif'],
-                body: ['Inter', 'Manrope', '-apple-system', 'sans-serif'],
-                accent: ['Manrope', 'sans-serif'],
+                body: ['Inter', '-apple-system', 'sans-serif'],
             },
             boxShadow: {
-                'soft': '0 2px 8px rgba(42, 31, 31, 0.08)',
-                'medium': '0 4px 20px rgba(42, 31, 31, 0.12)',
-                'strong': '0 8px 30px rgba(42, 31, 31, 0.18)',
+                'soft': '0 2px 8px rgba(45, 41, 38, 0.04)',
+                'medium': '0 4px 16px rgba(45, 41, 38, 0.06)',
+                'card': '0 2px 12px rgba(232, 180, 184, 0.15)',
             },
             animation: {
-                'float-drift': 'float-drift 20s ease-in-out infinite',
-                'gentle-bounce': 'gentle-bounce 1.5s ease-in-out infinite',
-                'gentle-rotate': 'gentle-rotate 4s ease-in-out infinite',
+                'fade-in': 'fadeIn 0.6s ease-out',
+                'fade-in-up': 'fadeInUp 0.6s ease-out',
             },
             keyframes: {
-                'float-drift': {
-                    '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
-                    '25%': { transform: 'translateY(-20px) rotate(5deg)' },
-                    '50%': { transform: 'translateY(-10px) rotate(-3deg)' },
-                    '75%': { transform: 'translateY(-25px) rotate(3deg)' },
+                fadeIn: {
+                    from: { opacity: '0' },
+                    to: { opacity: '1' },
                 },
-                'gentle-bounce': {
-                    '0%, 100%': { transform: 'translateY(0)' },
-                    '50%': { transform: 'translateY(-5px)' },
-                },
-                'gentle-rotate': {
-                    '0%, 100%': { transform: 'rotate(-2deg)' },
-                    '50%': { transform: 'rotate(2deg)' },
+                fadeInUp: {
+                    from: { opacity: '0', transform: 'translateY(20px)' },
+                    to: { opacity: '1', transform: 'translateY(0)' },
                 },
             },
         },

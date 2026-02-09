@@ -1,550 +1,273 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import {
-  ScrapPageCard,
-  WashiTape,
-  PaperClip,
-  StickyNote,
-  StarSticker,
-  HeartSticker
-} from './scrapbook';
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Clean SVG icons matching the theme
+const icons = {
+  brain: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" />
+      <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z" />
+      <path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4" />
+      <path d="M12 18v4" />
+    </svg>
+  ),
+  satellite: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M13 7 9 3 5 7l4 4" />
+      <path d="m17 11 4 4-4 4-4-4" />
+      <path d="m8 12 4 4 6-6-4-4Z" />
+      <path d="m16 8 3-3" />
+      <path d="M9 21a6 6 0 0 0-6-6" />
+    </svg>
+  ),
+  heart: (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+      <path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08v0c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66" />
+      <path d="m18 15-2-2" />
+      <path d="m15 18-2-2" />
+    </svg>
+  )
+};
 
 const projectsData = [
   {
     title: 'IntelliQuery',
-    subtitle: 'LightRAG LLM Document Retrieval',
-    description: 'Built an LLM-powered retrieval system for enterprise document analysis. Achieved 5x faster retrieval + 84.8% accuracy improvement. Implemented semantic search + hybrid indexing + contextual reranking. Added explainable answers with source attribution.',
-    tags: ['LLM', 'RAG', 'Semantic Search', 'Python'],
-    color: 'yellow',
-    rotation: -1
+    subtitle: 'LLM + LightRAG System',
+    description: 'Built an intelligent document retrieval system using LightRAG architecture with semantic chunking, efficient embeddings, and context-aware query answering for enterprise knowledge bases.',
+    tags: ['Python', 'LangChain', 'LightRAG', 'Vector DB'],
+    icon: 'brain',
+    github: 'https://github.com/pri-1207/intelliquery',
+    gradient: 'pink'
   },
   {
-    title: 'ATR in SAR Images',
-    subtitle: 'ViT + ConvNeXt',
-    description: 'Benchmarked VGG16, ResNet50, ConvNeXt, ViT-B/16. Achieved 98-99% accuracy with Vision Transformers. Used AdamW + LR scheduling + augmentation. Evaluated via F1-score + Confusion Matrix.',
-    tags: ['Computer Vision', 'ViT', 'Deep Learning', 'PyTorch'],
-    color: 'pink',
-    rotation: 1.5
+    title: 'SAR Image ATR',
+    subtitle: 'Vision Transformers & ConvNeXt',
+    description: 'Automatic Target Recognition on SAR imagery using Vision Transformers and ConvNeXt architectures. Implemented explainability with LIME and SHAP for model interpretability.',
+    tags: ['Python', 'PyTorch', 'ViT', 'ConvNeXt', 'XAI'],
+    icon: 'satellite',
+    github: 'https://github.com/pri-1207/sar-atr',
+    gradient: 'lime'
   },
   {
-    title: 'Health Fitness Recommendation',
-    subtitle: 'Personalized System',
-    description: 'Classifies users based on BMI/activity/goals. Recommends plans with XGBoost. Integrated SHAP explainability for transparent recommendations.',
-    tags: ['XGBoost', 'SHAP', 'ML', 'Python'],
-    color: 'blue',
-    rotation: -0.5
-  },
-  {
-    title: 'Smart Digital Wardrobe',
-    subtitle: 'Outfit Recommender',
-    description: 'Full-stack app (React + Node.js). Outfit suggestion via ML color/style matching + weather filtering for personalized fashion recommendations.',
-    tags: ['React', 'Node.js', 'ML', 'Full-Stack'],
-    color: 'green',
-    rotation: 1
+    title: 'Health & Fitness System',
+    subtitle: 'Personalized Wellness Platform',
+    description: 'Full-stack personalized health platform with workout recommendations, nutrition tracking, and progress analytics. Built with React, Node.js, and PostgreSQL.',
+    tags: ['React', 'Node.js', 'PostgreSQL', 'REST API'],
+    icon: 'heart',
+    github: 'https://github.com/pri-1207/health-fitness',
+    gradient: 'pink'
   }
 ];
 
 export default function Projects() {
   const sectionRef = useRef(null);
-  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.set('.project-card', { opacity: 0, y: 50, rotation: 0 });
-      gsap.set('.projects-sticker', { opacity: 0, scale: 0 });
-    }, sectionRef);
+      gsap.set('.project-animate', { opacity: 0, y: 30 });
 
-    return () => ctx.revert();
-  }, []);
-
-  useEffect(() => {
-    if (!sectionRef.current) return;
-
-    const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: 'top 75%',
         onEnter: () => {
-          if (!isOpen) {
-            // Show box entrance
-            gsap.fromTo('.cardboard-box',
-              { opacity: 0, y: 30 },
-              { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
-            );
-          }
+          gsap.to('.project-animate', {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: 'power2.out'
+          });
         }
       });
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [isOpen]);
-
-  const handleBoxClick = () => {
-    if (isOpen) return;
-
-    setIsOpen(true);
-
-    const tl = gsap.timeline();
-
-    // Shake box
-    tl.to('.cardboard-box', {
-      x: -3,
-      rotation: -1,
-      duration: 0.07,
-      yoyo: true,
-      repeat: 5,
-      ease: 'power1.inOut'
-    })
-      // Open lid
-      .to('.box-lid', {
-        rotateX: -130,
-        duration: 0.5,
-        ease: 'power2.out'
-      })
-      // Tape peels
-      .to('.box-tape-strip', {
-        y: -15,
-        opacity: 0,
-        duration: 0.3,
-        ease: 'power2.out'
-      }, '-=0.3')
-      // Hide box
-      .to('.box-wrapper', {
-        opacity: 0,
-        y: -20,
-        scale: 0.9,
-        duration: 0.4,
-        ease: 'power2.in'
-      }, '+=0.1')
-      .set('.box-wrapper', { display: 'none' })
-      // Show projects
-      .set('.projects-grid', { display: 'grid' })
-      .to('.project-card', {
-        opacity: 1,
-        y: 0,
-        rotation: (i) => projectsData[i]?.rotation || 0,
-        duration: 0.6,
-        stagger: 0.12,
-        ease: 'back.out(1.2)'
-      })
-      .to('.projects-sticker', {
-        opacity: 1,
-        scale: 1,
-        duration: 0.4,
-        stagger: 0.1,
-        ease: 'back.out(2)'
-      }, '-=0.3');
-  };
-
-  const handleReset = () => {
-    if (!isOpen) return;
-
-    const tl = gsap.timeline({
-      onComplete: () => setIsOpen(false)
-    });
-
-    tl.to('.projects-sticker', {
-      opacity: 0,
-      scale: 0.5,
-      duration: 0.2,
-      stagger: 0.03
-    })
-      .to('.project-card', {
-        opacity: 0,
-        y: 30,
-        duration: 0.3,
-        stagger: 0.05,
-        ease: 'power2.in'
-      }, '-=0.1')
-      .set('.projects-grid', { display: 'none' })
-      .set('.box-wrapper', { display: 'flex' })
-      .to('.box-wrapper', {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.4,
-        ease: 'power2.out'
-      })
-      .to('.box-tape-strip', {
-        y: 0,
-        opacity: 1,
-        duration: 0.3
-      }, '-=0.2')
-      .to('.box-lid', {
-        rotateX: 0,
-        duration: 0.4,
-        ease: 'power2.out'
-      }, '-=0.1');
-  };
+  }, []);
 
   return (
-    <section ref={sectionRef} id="projects" className="projects-section section">
+    <section ref={sectionRef} id="projects" className="projects section">
       <div className="container">
-        {/* Section Header */}
-        <div className="section-header">
-          <div className="section-title-wrapper">
-            <h2>Projects</h2>
-            <div className="label-strip"></div>
-          </div>
-          <div className="section-label">FEATURED WORK</div>
+        <div className="section-header project-animate">
+          <span className="section-label">Featured Work</span>
+          <h2 className="section-title">
+            Recent <span className="italic-accent">Projects</span>
+          </h2>
+          <p className="section-desc">
+            A selection of projects showcasing my work in AI, ML, and full-stack development.
+          </p>
         </div>
 
-        {/* Box Container */}
-        <div className="box-container">
-          {/* Cardboard Box */}
-          <div className="box-wrapper">
-            <div className="cardboard-box" onClick={handleBoxClick}>
-              {/* Box Lid */}
-              <div className="box-lid">
-                <div className="lid-flap left"></div>
-                <div className="lid-flap right"></div>
-                <div className="lid-main">
-                  {/* Tape on lid */}
-                  <div className="box-tape-strip"></div>
+        <div className="projects-grid">
+          {projectsData.map((project, index) => (
+            <article key={index} className="project-card project-animate">
+              <div className={`project-thumb ${project.gradient}`}>
+                <div className="project-icon">{icons[project.icon]}</div>
+              </div>
+
+              <div className="project-content">
+                <span className="project-subtitle">{project.subtitle}</span>
+                <h3 className="project-title">{project.title}</h3>
+                <p className="project-desc">{project.description}</p>
+
+                <div className="project-tags">
+                  {project.tags.map((tag, i) => (
+                    <span key={i} className={`tag ${i % 2 !== 0 ? 'lime' : ''}`}>{tag}</span>
+                  ))}
                 </div>
+
+                <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-link">
+                  View on GitHub
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+                  </svg>
+                </a>
               </div>
+            </article>
+          ))}
+        </div>
 
-              {/* Box Body */}
-              <div className="box-body">
-                {/* Tape continuation */}
-                <div className="box-tape-strip body-tape"></div>
-
-                {/* Label */}
-                <div className="box-label">
-                  <span className="label-text">Click to open</span>
-                  <span className="label-icon">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M12 5v14M5 12l7 7 7-7" />
-                    </svg>
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Desk surface */}
-            <div className="desk-surface"></div>
-          </div>
-
-          {/* Projects Grid */}
-          <div className="projects-grid">
-            {projectsData.map((project, index) => (
-              <div key={index} className="project-card-wrapper">
-                <StickyNote
-                  color={project.color}
-                  rotation={project.rotation}
-                  className="project-card"
-                >
-                  {/* Washi tape on top */}
-                  <WashiTape
-                    color={index % 2 === 0 ? 'mint' : 'peach'}
-                    pattern="polka"
-                    direction="horizontal"
-                    style={{ top: '-10px', left: '20%', width: '60px' }}
-                  />
-
-                  {/* Paperclip on some */}
-                  {index === 0 && (
-                    <PaperClip color="gold" rotation={10} style={{ top: '-20px', right: '15px' }} />
-                  )}
-
-                  {/* Content */}
-                  <h3 className="project-title">{project.title}</h3>
-                  <p className="project-subtitle">{project.subtitle}</p>
-                  <p className="project-description">{project.description}</p>
-
-                  {/* Tags */}
-                  <div className="project-tags">
-                    {project.tags.map((tag, i) => (
-                      <span key={i} className="tag">{tag}</span>
-                    ))}
-                  </div>
-                </StickyNote>
-              </div>
-            ))}
-
-            {/* Close Button */}
-            <button className="reset-btn" onClick={handleReset}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="1 4 1 10 7 10" />
-                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
-              </svg>
-              Close Box
-            </button>
-
-            {/* Stickers */}
-            <StarSticker style={{ top: '30px', right: '10%' }} size={22} className="projects-sticker" />
-            <HeartSticker style={{ bottom: '50px', left: '5%' }} color="#D4A5A5" size={25} className="projects-sticker" />
-          </div>
+        <div className="projects-cta project-animate">
+          <a href="https://github.com/pri-1207" target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+            View All on GitHub
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+            </svg>
+          </a>
         </div>
       </div>
 
       <style jsx>{`
-        .projects-section {
-          padding: var(--section-padding) 0;
-          position: relative;
-        }
-
-        .section-header {
-          text-align: center;
-          margin-bottom: 3rem;
-        }
-
-        .section-title-wrapper {
-          display: inline-block;
-          position: relative;
-          margin-bottom: 0.75rem;
-        }
-
-        .section-title-wrapper h2 {
-          font-family: var(--font-title);
-          font-size: clamp(2rem, 4vw, 2.8rem);
-          color: var(--charcoal);
-          position: relative;
-          z-index: 1;
-        }
-
-        .label-strip {
-          position: absolute;
-          bottom: 2px;
-          left: -10px;
-          right: -10px;
-          height: 14px;
-          background: var(--sticky-green);
-          opacity: 0.6;
-          z-index: 0;
-          transform: rotate(-1deg);
-        }
-
-        .section-label {
-          font-family: var(--font-typewriter);
-          font-size: 0.7rem;
-          letter-spacing: 0.15em;
-          color: var(--text-muted);
-        }
-
-        .box-container {
-          max-width: 1000px;
-          margin: 0 auto;
-          min-height: 400px;
-        }
-
-        .box-wrapper {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          padding: 2rem 0;
-        }
-
-        .cardboard-box {
-          width: 180px;
-          cursor: pointer;
-          perspective: 800px;
-          transform-style: preserve-3d;
-        }
-
-        .box-lid {
-          position: relative;
-          transform-style: preserve-3d;
-          transform-origin: bottom center;
-        }
-
-        .lid-main {
-          height: 35px;
-          background: linear-gradient(180deg, #D4B896 0%, #C4A574 100%);
-          border-radius: 4px 4px 0 0;
-          position: relative;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .lid-flap {
-          position: absolute;
-          bottom: 100%;
-          height: 22px;
-          background: linear-gradient(180deg, #C4A574 0%, #B8996A 100%);
-        }
-
-        .lid-flap.left {
-          left: 0;
-          width: 45%;
-          border-radius: 3px 0 0 0;
-          transform: rotateX(-20deg);
-          transform-origin: bottom;
-        }
-
-        .lid-flap.right {
-          right: 0;
-          width: 45%;
-          border-radius: 0 3px 0 0;
-          transform: rotateX(-15deg);
-          transform-origin: bottom;
-        }
-
-        .box-body {
-          height: 100px;
-          background: linear-gradient(180deg, #C4A574 0%, #A68B5B 50%, #8B7347 100%);
-          border-radius: 0 0 4px 4px;
-          position: relative;
-          box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-        }
-
-        .box-tape-strip {
-          position: absolute;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 50px;
-          height: 35px;
-          background: rgba(255, 248, 220, 0.85);
-          border: 1px solid rgba(200, 180, 150, 0.4);
-        }
-
-        .body-tape {
-          top: 0;
-          height: 40px;
-        }
-
-        .box-label {
-          position: absolute;
-          bottom: 12px;
-          left: 50%;
-          transform: translateX(-50%);
-          background: var(--paper-white);
-          padding: 6px 14px;
-          border-radius: 3px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 2px;
-          box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .label-text {
-          font-family: var(--font-typewriter);
-          font-size: 0.65rem;
-          font-weight: 600;
-          color: var(--charcoal);
-          text-transform: uppercase;
-          letter-spacing: 0.03em;
-        }
-
-        .label-icon {
-          color: var(--kraft-paper);
-          animation: bounce 1.5s ease-in-out infinite;
-        }
-
-        @keyframes bounce {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(3px); }
-        }
-
-        .desk-surface {
-          width: 240px;
-          height: 18px;
-          background: linear-gradient(180deg, #DED4C7 0%, #C8BEB1 100%);
-          border-radius: 0 0 6px 6px;
-          margin-top: -8px;
-          box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        .section-desc {
+          max-width: 450px;
+          margin-top: 0.75rem;
+          font-size: 0.95rem;
         }
 
         .projects-grid {
-          display: none;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 2rem;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1.5rem;
+          margin-top: 2.5rem;
+        }
+
+        .project-card {
+          background: white;
+          border-radius: 10px;
+          overflow: hidden;
+          box-shadow: var(--shadow-soft);
+          transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+          transform: translateY(-5px);
+          box-shadow: var(--shadow-medium);
+        }
+
+        .project-thumb {
+          height: 120px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           position: relative;
-          padding: 1rem;
         }
 
-        .project-card-wrapper :global(.sticky-note) {
-          padding: 1.75rem;
-          min-height: 240px;
+        .project-thumb.pink {
+          background: linear-gradient(135deg, var(--pinktone) 0%, var(--primrose-pink-light) 100%);
         }
 
-        .project-title {
-          font-family: var(--font-title);
-          font-size: 1.2rem;
-          color: var(--charcoal);
-          margin-bottom: 0.25rem;
+        .project-thumb.lime {
+          background: linear-gradient(135deg, var(--lime-light) 0%, var(--lime) 50%, var(--lime-light) 100%);
+        }
+
+        .project-icon {
+          width: 50px;
+          height: 50px;
+          background: white;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: var(--shadow-soft);
+          color: var(--text-secondary);
+        }
+
+        .project-thumb.pink .project-icon {
+          color: var(--primrose-pink-dark);
+        }
+
+        .project-thumb.lime .project-icon {
+          color: var(--lime-dark);
+        }
+
+        .project-content {
+          padding: 1.25rem;
         }
 
         .project-subtitle {
-          font-family: var(--font-typewriter);
-          font-size: 0.75rem;
-          color: var(--muted-red);
+          font-size: 0.65rem;
+          font-weight: 600;
+          letter-spacing: 0.08em;
           text-transform: uppercase;
-          letter-spacing: 0.05em;
-          margin-bottom: 1rem;
+          color: var(--lime-dark);
+          margin-bottom: 0.3rem;
+          display: block;
         }
 
-        .project-description {
-          font-family: var(--font-body);
+        .project-title {
+          font-family: var(--font-heading);
+          font-size: 1.15rem;
+          font-weight: 500;
+          margin-bottom: 0.5rem;
+        }
+
+        .project-desc {
           font-size: 0.85rem;
           line-height: 1.6;
-          color: var(--cocoa);
-          margin-bottom: 1rem;
+          margin-bottom: 0.75rem;
         }
 
         .project-tags {
           display: flex;
           flex-wrap: wrap;
-          gap: 0.4rem;
+          gap: 0.35rem;
+          margin-bottom: 0.75rem;
         }
 
-        .tag {
-          padding: 3px 8px;
-          background: rgba(255,255,255,0.5);
-          border-radius: 3px;
-          font-family: var(--font-body);
-          font-size: 0.7rem;
+        .project-link {
+          font-size: 0.8rem;
+          color: var(--primrose-pink-dark);
+          text-decoration: none;
           font-weight: 500;
-          color: var(--text-muted);
-        }
-
-        .reset-btn {
-          grid-column: 1 / -1;
-          justify-self: center;
-          display: flex;
+          display: inline-flex;
           align-items: center;
-          gap: 6px;
-          padding: 8px 18px;
-          background: var(--paper-cream);
-          border: 2px solid var(--kraft-paper);
-          border-radius: 20px;
-          font-family: var(--font-typewriter);
-          font-size: 0.75rem;
-          font-weight: 600;
-          color: var(--kraft-dark);
-          cursor: pointer;
-          transition: all 0.3s ease;
-          margin-top: 1rem;
+          gap: 4px;
+          transition: color 0.2s;
         }
 
-        .reset-btn:hover {
-          background: var(--kraft-paper);
-          color: var(--paper-white);
+        .project-link:hover {
+          color: var(--text-primary);
         }
 
-        @media (max-width: 768px) {
+        .projects-cta {
+          text-align: center;
+          margin-top: 2rem;
+        }
+
+        @media (max-width: 900px) {
+          .projects-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        @media (max-width: 600px) {
           .projects-grid {
             grid-template-columns: 1fr;
-            gap: 1.5rem;
-          }
-
-          .cardboard-box {
-            width: 150px;
-          }
-
-          .box-body {
-            height: 80px;
-          }
-
-          .project-card-wrapper :global(.sticky-note) {
-            transform: rotate(0deg) !important;
           }
         }
       `}</style>

@@ -1,52 +1,82 @@
 'use client';
 
+import { useEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
-import FocusAreas from '@/components/FocusAreas';
-import Education from '@/components/Education';
 import Skills from '@/components/Skills';
 import Projects from '@/components/Projects';
-import Experience from '@/components/Experience';
 import Achievements from '@/components/Achievements';
-import Certifications from '@/components/Certifications';
+import Leadership from '@/components/Leadership';
 import Contact from '@/components/Contact';
+import Footer from '@/components/Footer';
+import ScrollProgress from '@/components/ScrollProgress';
+
+// Register GSAP plugins
+if (typeof window !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function Home() {
+    useEffect(() => {
+        // Smooth section reveals
+        const sections = document.querySelectorAll('section');
+
+        sections.forEach((section) => {
+            gsap.fromTo(section,
+                { opacity: 0 },
+                {
+                    opacity: 1,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top 90%',
+                        toggleActions: 'play none none none'
+                    }
+                }
+            );
+        });
+
+        return () => {
+            ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+        };
+    }, []);
+
     return (
         <main className="main-wrapper">
+            {/* Scroll progress bar */}
+            <ScrollProgress />
+
             {/* Navigation */}
             <Navbar />
 
-            {/* Hero - Magazine Cover Style */}
+            {/* Hero - Introduction */}
             <Hero />
 
-            {/* About - Journal Page */}
+            {/* About Me */}
             <About />
 
-            {/* Focus Areas - Sticky Note Pills */}
-            <FocusAreas />
-
-            {/* Education - School Cards */}
-            <Education />
-
-            {/* Skills - Sticky Notes */}
+            {/* Technical Skills */}
             <Skills />
 
-            {/* Projects - Box Unboxing */}
+            {/* Featured Projects */}
             <Projects />
 
-            {/* Experience - Bulletin Board */}
-            <Experience />
-
-            {/* Achievements - Polaroid Stamps */}
+            {/* Key Achievements */}
             <Achievements />
 
-            {/* Certifications - Ticket Stubs */}
-            <Certifications />
+            {/* Leadership & Activities */}
+            <Leadership />
 
-            {/* Contact - Stationery Card */}
+            {/* Contact */}
             <Contact />
+
+            {/* Footer */}
+            <Footer />
         </main>
     );
 }

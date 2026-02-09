@@ -3,370 +3,272 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import {
-  ScrapPageCard,
-  WashiTape,
-  PaperClip,
-  HeartSticker,
-  LeafSticker,
-  BowSticker
-} from './scrapbook';
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Clean SVG icons
+const icons = {
+  trophy: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+      <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+      <path d="M4 22h16" />
+      <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+      <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+      <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+    </svg>
+  ),
+  chart: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 3v18h18" />
+      <path d="m19 9-5 5-4-4-3 3" />
+    </svg>
+  )
+};
 
 export default function About() {
   const sectionRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.set('.about-page', { opacity: 0, y: 50, rotation: -2 });
-      gsap.set('.about-line', { opacity: 0, x: -30 });
-      gsap.set('.about-sticker', { opacity: 0, scale: 0 });
-      gsap.set('.about-tape', { opacity: 0, y: -20 });
+      gsap.set('.about-animate', { opacity: 0, y: 25 });
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-          toggleActions: 'play none none reverse'
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: 'top 80%',
+        onEnter: () => {
+          gsap.to('.about-animate', {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            stagger: 0.08,
+            ease: 'power2.out'
+          });
         }
       });
-
-      tl.to('.about-page', {
-        opacity: 1,
-        y: 0,
-        rotation: -1,
-        duration: 0.8,
-        ease: 'power3.out'
-      })
-        .to('.about-tape', {
-          opacity: 0.85,
-          y: 0,
-          duration: 0.4,
-          stagger: 0.1,
-          ease: 'power2.out'
-        }, '-=0.4')
-        .to('.about-line', {
-          opacity: 1,
-          x: 0,
-          duration: 0.5,
-          stagger: 0.12,
-          ease: 'power2.out'
-        }, '-=0.3')
-        .to('.about-sticker', {
-          opacity: 1,
-          scale: 1,
-          duration: 0.5,
-          stagger: 0.1,
-          ease: 'back.out(2)'
-        }, '-=0.3');
-
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} id="about" className="about-section section">
+    <section ref={sectionRef} id="about" className="about section">
       <div className="container">
-        {/* Section Title */}
-        <div className="section-header">
-          <div className="section-title-wrapper">
-            <h2>About Me</h2>
-            <div className="label-strip"></div>
-          </div>
-          <div className="section-label">A LITTLE INTRODUCTION</div>
-        </div>
+        <div className="about-grid">
+          {/* Content */}
+          <div className="about-content">
+            <div className="section-header about-animate">
+              <span className="section-label">About Me</span>
+              <h2 className="section-title">A Quick <span className="italic-accent">Introduction</span></h2>
+            </div>
 
-        {/* Journal Page */}
-        <div className="about-page-wrapper">
-          <div className="about-page">
-            <ScrapPageCard variant="white" rotation={-1}>
-              {/* Washi Tapes */}
-              <WashiTape
-                color="peach"
-                pattern="polka"
-                direction="diagonal-left"
-                style={{ top: '-10px', left: '30px' }}
-                className="about-tape"
-              />
-              
+            <div className="about-text">
+              <p className="about-animate">
+                I'm <strong>Prisha Gupta</strong>, a B.Tech CSE student at <strong>IIIT Pune</strong>
+                with a strong foundation in <em>Data Structures</em>, <em>Algorithms</em>, and
+                <em>System Design</em>.
+              </p>
 
-              {/* Paper Clip */}
-              <PaperClip color="silver" rotation={-10} style={{ top: '-25px', left: '150px' }} />
+              <p className="about-animate">
+                Currently focused on building <strong>LLM-powered applications</strong> and
+                <strong>intelligent systems</strong>. My recent work includes RAG-based document
+                retrieval, computer vision with transformers, and full-stack web applications.
+              </p>
 
-              {/* Notebook Lines Background */}
-              <div className="notebook-lines">
-                {/* Red margin line */}
-                <div className="margin-line"></div>
+              <p className="about-animate">
+                I'm actively seeking <strong>SDE internship opportunities</strong> where I can
+                contribute to impactful projects while growing as an engineer.
+              </p>
+            </div>
 
-                {/* Content */}
-                <div className="journal-content">
-                  {/* Greeting */}
-                  <p className="about-line greeting">
-                    <span className="greeting-hi">Hi!</span> I'm Prisha
-                  </p>
-
-                  {/* Main text */}
-                  <p className="about-line main-text">
-                    I'm a CSE student at IIIT Pune. I'm drawn to projects where engineering
-                    meets clarity: building ML models that perform well, and interfaces that
-                    feel clean and intentional.
-                  </p>
-
-                  <p className="about-line main-text">
-                    Lately I've been exploring LLM workflows (RAG + retrieval systems),
-                    computer vision, and explainability — basically anything that helps
-                    turn raw data into something useful and trustworthy.
-                  </p>
-
-                  {/* Divider with heart */}
-                  <div className="about-divider about-line">
-                    <span className="divider-line"></span>
-                    <HeartSticker style={{ position: 'relative' }} color="#D4A5A5" size={20} />
-                    <span className="divider-line"></span>
-                  </div>
-
-                  {/* Personal note */}
-                  <div className="about-line personal-note">
-                    <div className="note-header">
-                      <LeafSticker style={{ position: 'relative' }} color="#8BA888" size={20} />
-                      <span>Outside tech...</span>
-                    </div>
-                    <p>
-                      You'll usually find me playing tennis, reading fiction/non-fiction,
-                      or writing poems. I also enjoy designing and creative roles alongside
-                      development.
-                    </p>
-                  </div>
-
-                  {/* Signature */}
-                  <div className="about-line signature">
-                    — Prisha
-                  </div>
-                </div>
-
-                {/* Punch holes */}
-                <div className="punch-holes">
-                  <div className="hole"></div>
-                  <div className="hole"></div>
-                  <div className="hole"></div>
+            {/* Quick highlights */}
+            <div className="about-highlights about-animate">
+              <div className="highlight-item">
+                <span className="highlight-icon">{icons.trophy}</span>
+                <div>
+                  <strong>HackRx 6.0</strong>
+                  <p>Top 3 + Best Pitch</p>
                 </div>
               </div>
+              <div className="highlight-item">
+                <span className="highlight-icon">{icons.chart}</span>
+                <div>
+                  <strong>JEE 2023</strong>
+                  <p>97.7 Percentile</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-              {/* Side Label */}
-              <div className="side-label" style={{ left: '-25px', top: '40%' }}>ABOUT</div>
+          {/* Sidebar */}
+          <div className="about-sidebar">
+            <div className="info-card about-animate">
+              <h4>Education</h4>
+              <div className="edu-item">
+                <p className="edu-degree">B.Tech CSE</p>
+                <p className="edu-school">IIIT Pune</p>
+                <p className="edu-detail">CGPA: 7.5</p>
+              </div>
+              <div className="edu-item">
+                <p className="edu-degree">Senior Secondary (CBSE)</p>
+                <p className="edu-detail">91.8%</p>
+              </div>
+            </div>
 
-              {/* Stickers */}
-              <BowSticker style={{ bottom: '20px', right: '25px' }} color="#D4A5A5" size={35} className="about-sticker" />
-            </ScrapPageCard>
+            <div className="info-card about-animate">
+              <h4>Interests</h4>
+              <div className="interest-tags">
+                <span className="tag lime">Machine Learning</span>
+                <span className="tag lime">Web Development</span>
+                <span className="tag lime">LLM Systems</span>
+                <span className="tag lime">System Design</span>
+              </div>
+            </div>
+
+            <div className="info-card about-animate">
+              <h4>Beyond Code</h4>
+              <p className="beyond-text">Debate, Creative Writing, Tennis, Club Leadership</p>
+            </div>
           </div>
         </div>
       </div>
 
       <style jsx>{`
-        .about-section {
-          padding: var(--section-padding) 0;
-          position: relative;
+        .about {
+          background: var(--yucca);
         }
 
-        .section-header {
-          text-align: center;
-          margin-bottom: 3rem;
+        .about-grid {
+          display: grid;
+          grid-template-columns: 1fr 280px;
+          gap: 3rem;
+          align-items: start;
         }
 
-        .section-title-wrapper {
-          display: inline-block;
-          position: relative;
-          margin-bottom: 0.75rem;
+        .about-text p {
+          margin-bottom: 1rem;
+          font-size: 0.95rem;
+          line-height: 1.8;
         }
 
-        .section-title-wrapper h2 {
-          font-family: var(--font-title);
-          font-size: clamp(2rem, 4vw, 2.8rem);
-          color: var(--charcoal);
-          position: relative;
-          z-index: 1;
+        .about-text strong {
+          color: var(--text-primary);
         }
 
-        .label-strip {
-          position: absolute;
-          bottom: 2px;
-          left: -10px;
-          right: -10px;
-          height: 14px;
-          background: var(--sticky-yellow);
-          opacity: 0.6;
-          z-index: 0;
-          transform: rotate(-1deg);
+        .about-text em {
+          color: var(--primrose-pink-dark);
+          font-style: normal;
         }
 
-        .section-label {
-          font-family: var(--font-typewriter);
-          font-size: 0.7rem;
-          letter-spacing: 0.15em;
-          color: var(--text-muted);
-        }
-
-        .about-page-wrapper {
-          max-width: 800px;
-          margin: 0 auto;
-        }
-
-        .about-page :global(.scrap-page-card) {
-          padding: 0;
-          overflow: hidden;
-        }
-
-        .notebook-lines {
-          position: relative;
-          padding: 2.5rem 3rem 2.5rem 4rem;
-          background: 
-            repeating-linear-gradient(
-              transparent,
-              transparent 27px,
-              #B8D4E8 28px
-            );
-          min-height: 400px;
-        }
-
-        .margin-line {
-          position: absolute;
-          left: 3.5rem;
-          top: 0;
-          bottom: 0;
-          width: 2px;
-          background: linear-gradient(180deg, 
-            transparent 0%, 
-            #E8A8A8 10%, 
-            #E8A8A8 90%, 
-            transparent 100%
-          );
-          opacity: 0.6;
-        }
-
-        .punch-holes {
-          position: absolute;
-          left: 1rem;
-          top: 50%;
-          transform: translateY(-50%);
+        .about-highlights {
           display: flex;
-          flex-direction: column;
-          gap: 2.5rem;
+          gap: 1.5rem;
+          margin-top: 1.5rem;
         }
 
-        .hole {
-          width: 14px;
-          height: 14px;
+        .highlight-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 0.75rem;
+          padding: 1rem;
+          background: var(--pinktone);
+          border-radius: 8px;
+          flex: 1;
+        }
+
+        .highlight-icon {
+          width: 36px;
+          height: 36px;
+          background: white;
           border-radius: 50%;
-          background: var(--gingham-blue-light);
-          box-shadow: inset 0 1px 3px rgba(0,0,0,0.15);
-        }
-
-        .journal-content {
-          position: relative;
-          z-index: 1;
-        }
-
-        .about-line {
-          margin-bottom: 1.5rem;
-        }
-
-        .greeting {
-          font-family: var(--font-title);
-          font-size: 1.6rem;
-          color: var(--charcoal);
-          margin-bottom: 1.75rem;
-        }
-
-        .greeting-hi {
-          color: var(--muted-red);
-        }
-
-        .main-text {
-          font-family: var(--font-body);
-          font-size: 1rem;
-          line-height: 1.9;
-          color: var(--cocoa);
-        }
-
-        .about-divider {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 1rem;
-          margin: 2rem 0;
+          color: var(--primrose-pink-dark);
+          flex-shrink: 0;
         }
 
-        .divider-line {
-          height: 1px;
-          width: 60px;
-          background: linear-gradient(90deg, transparent, var(--dusty-pink), transparent);
-        }
-
-        .personal-note {
-          background: rgba(139, 168, 136, 0.1);
-          padding: 1.25rem 1.5rem;
-          border-radius: 4px;
-          border-left: 3px solid var(--sage-green);
-        }
-
-        .note-header {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          font-family: var(--font-accent);
-          font-weight: 600;
+        .highlight-item strong {
+          display: block;
           font-size: 0.9rem;
-          color: var(--sage-green);
-          margin-bottom: 0.5rem;
+          margin-bottom: 0.2rem;
         }
 
-        .personal-note p {
-          font-family: var(--font-body);
-          font-size: 0.95rem;
-          line-height: 1.7;
-          color: var(--cocoa);
+        .highlight-item p {
+          font-size: 0.8rem;
+          color: var(--text-light);
           margin: 0;
         }
 
-        .signature {
-          font-family: var(--font-typewriter);
-          font-size: 0.95rem;
-          color: var(--text-muted);
-          text-align: right;
-          margin-top: 2rem;
-          font-style: italic;
+        /* Sidebar */
+        .about-sidebar {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
         }
 
-        .side-label {
-          position: absolute;
-          writing-mode: vertical-rl;
-          text-orientation: mixed;
-          font-family: var(--font-typewriter);
-          font-size: 0.6rem;
-          letter-spacing: 0.15em;
+        .info-card {
+          padding: 1.25rem;
+          background: white;
+          border-radius: 8px;
+          box-shadow: var(--shadow-soft);
+        }
+
+        .info-card h4 {
+          font-family: var(--font-body);
+          font-size: 0.7rem;
+          font-weight: 600;
+          letter-spacing: 0.1em;
           text-transform: uppercase;
-          color: var(--text-muted);
-          opacity: 0.4;
+          color: var(--primrose-pink-dark);
+          margin-bottom: 0.75rem;
         }
 
-        @media (max-width: 768px) {
-          .notebook-lines {
-            padding: 2rem 1.5rem 2rem 2.5rem;
+        .edu-item {
+          margin-bottom: 0.75rem;
+        }
+
+        .edu-item:last-child {
+          margin-bottom: 0;
+        }
+
+        .edu-degree {
+          font-weight: 600;
+          font-size: 0.9rem;
+          color: var(--text-primary);
+          margin-bottom: 0.1rem;
+        }
+
+        .edu-school {
+          font-size: 0.85rem;
+          color: var(--text-secondary);
+        }
+
+        .edu-detail {
+          font-size: 0.8rem;
+          color: var(--text-light);
+        }
+
+        .interest-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.4rem;
+        }
+
+        .beyond-text {
+          font-size: 0.85rem;
+          color: var(--text-secondary);
+          line-height: 1.6;
+        }
+
+        @media (max-width: 900px) {
+          .about-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
           }
 
-          .margin-line {
-            left: 2rem;
-          }
-
-          .punch-holes {
-            left: 0.5rem;
-          }
-
-          .hole {
-            width: 12px;
-            height: 12px;
+          .about-highlights {
+            flex-direction: column;
           }
         }
       `}</style>

@@ -1,76 +1,56 @@
 /* ============================================
-   PRISHA GUPTA - SCRAPBOOK JOURNAL PORTFOLIO
-   Pinterest-Style Gingham & Collage Design
+   PRISHA GUPTA - MINIMAL EDITORIAL PORTFOLIO
+   SDE Intern Focused | Pinterest Aesthetic
+   STRICT COLOR PALETTE: Pink + Lime + White
    ============================================ */
 
-/* Google Fonts Import */
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Manrope:wght@300;400;500;600;700&family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+/* Typography - 2 Fonts Only */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* ============================================
-   CSS CUSTOM PROPERTIES - SCRAPBOOK PALETTE
+   STRICT COLOR PALETTE (NO EXCEPTIONS)
    ============================================ */
 :root {
-    /* Gingham Colors */
-    --gingham-blue: #A8C8E8;
-    --gingham-blue-light: #D4E4F4;
-    --gingham-pink: #F5D0D0;
-    --gingham-pink-light: #FBE8E8;
-    --gingham-red: #E8A8A8;
+    /* ===== PRIMARY COLORS ===== */
+    --primrose-pink: #E8B4B8;
+    --primrose-pink-light: #F0C8CB;
+    --primrose-pink-dark: #D49599;
 
-    /* Paper Colors */
-    --paper-white: #FFFEF8;
-    --paper-cream: #FFF8E7;
-    --paper-aged: #F5ECD7;
-    --kraft-paper: #C9A66B;
-    --kraft-dark: #A68B5B;
+    --pinktone: #FDF0F0;
+    --pinktone-deep: #FAE3E3;
 
-    /* Accent Colors */
-    --muted-red: #B84A4A;
-    --denim-blue: #2E5E8A;
-    --dusty-pink: #D4A5A5;
-    --sage-green: #8BA888;
-    --mustard: #D4A94B;
-    --lavender: #B8A8D4;
+    --lime: #A8C69F;
+    --lime-light: #C4D9BC;
+    --lime-dark: #8FB085;
 
-    /* Text Colors */
-    --charcoal: #1E1E1E;
-    --cocoa: #4A3A2A;
-    --text-muted: #6B5B4B;
+    --yucca: #FDFCFA;
+    --yucca-warm: #FAF8F5;
 
-    /* Sticky Note Colors */
-    --sticky-yellow: #FFF59D;
-    --sticky-pink: #F8BBD9;
-    --sticky-blue: #B3E5FC;
-    --sticky-green: #C8E6C9;
-    --sticky-orange: #FFCC80;
+    /* ===== TEXT ===== */
+    --text-primary: #2D2926;
+    --text-secondary: #5C5552;
+    --text-light: #8A8582;
 
-    /* Washi Tape Colors */
-    --washi-pink: #FADCD9;
-    --washi-blue: #D4E6F1;
-    --washi-mint: #D5F5E3;
-    --washi-peach: #FCE4D6;
+    /* ===== TYPOGRAPHY ===== */
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-body: 'Inter', -apple-system, sans-serif;
 
-    /* Typography */
-    --font-title: 'DM Serif Display', 'Playfair Display', Georgia, serif;
-    --font-body: 'Inter', 'Manrope', -apple-system, sans-serif;
-    --font-typewriter: 'Special Elite', 'Courier Prime', monospace;
-    --font-accent: 'Manrope', sans-serif;
+    /* ===== SHADOWS ===== */
+    --shadow-soft: 0 2px 8px rgba(45, 41, 38, 0.04);
+    --shadow-medium: 0 4px 16px rgba(45, 41, 38, 0.06);
+    --shadow-card: 0 2px 12px rgba(232, 180, 184, 0.12);
 
-    /* Shadows */
-    --shadow-paper: 0 2px 8px rgba(0, 0, 0, 0.08), 0 4px 20px rgba(0, 0, 0, 0.04);
-    --shadow-lifted: 0 8px 25px rgba(0, 0, 0, 0.12), 0 4px 10px rgba(0, 0, 0, 0.08);
-    --shadow-sticker: 0 1px 3px rgba(0, 0, 0, 0.1);
-
-    /* Spacing */
-    --section-padding: clamp(4rem, 10vw, 7rem);
+    /* ===== SPACING ===== */
+    --section-padding: clamp(4rem, 10vw, 6rem);
+    --container-max: 1100px;
 }
 
 /* ============================================
-   BASE STYLES + GINGHAM BACKGROUND
+   BASE STYLES
    ============================================ */
 * {
     margin: 0;
@@ -81,37 +61,58 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
+    -webkit-font-smoothing: antialiased;
 }
 
 body {
     font-family: var(--font-body);
-    color: var(--charcoal);
+    color: var(--text-primary);
+    background-color: var(--yucca);
     line-height: 1.7;
     overflow-x: hidden;
-    position: relative;
-    min-height: 100vh;
+}
 
-    /* GINGHAM BACKGROUND PATTERN */
-    background-color: var(--gingham-blue-light);
-    background-image:
-        /* Grain overlay */
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"),
-        /* Gingham pattern */
+/* Flowing gradient background */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+        /* Large flowing blobs that create smooth color transitions */
+        radial-gradient(ellipse 100% 80% at 0% 0%, rgba(232, 180, 184, 0.25) 0%, transparent 50%),
+        radial-gradient(ellipse 80% 60% at 100% 30%, rgba(168, 198, 159, 0.20) 0%, transparent 45%),
+        radial-gradient(ellipse 90% 70% at 20% 60%, rgba(168, 198, 159, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse 100% 80% at 80% 100%, rgba(232, 180, 184, 0.22) 0%, transparent 50%),
+        /* Soft subtle grid pattern */
         repeating-linear-gradient(0deg,
             transparent,
-            transparent 20px,
-            rgba(168, 200, 232, 0.3) 20px,
-            rgba(168, 200, 232, 0.3) 40px),
+            transparent 49px,
+            rgba(232, 180, 184, 0.08) 49px,
+            rgba(232, 180, 184, 0.08) 50px),
         repeating-linear-gradient(90deg,
             transparent,
-            transparent 20px,
-            rgba(168, 200, 232, 0.3) 20px,
-            rgba(168, 200, 232, 0.3) 40px);
-    background-size: 100% 100%, 40px 40px, 40px 40px;
+            transparent 49px,
+            rgba(232, 180, 184, 0.08) 49px,
+            rgba(232, 180, 184, 0.08) 50px);
+    pointer-events: none;
+    z-index: -1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 
 /* ============================================
-   TYPOGRAPHY - JOURNAL STYLE
+   TYPOGRAPHY
    ============================================ */
 h1,
 h2,
@@ -119,46 +120,46 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: var(--font-title);
-    font-weight: 400;
+    font-family: var(--font-heading);
+    font-weight: 500;
     line-height: 1.2;
-    color: var(--charcoal);
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
 }
 
 h1 {
-    font-size: clamp(2.5rem, 7vw, 4.5rem);
-    letter-spacing: -0.02em;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 600;
 }
 
 h2 {
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
 }
 
 h3 {
-    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+    font-size: clamp(1.15rem, 2vw, 1.35rem);
 }
 
 p {
     font-family: var(--font-body);
-    font-weight: 400;
-    line-height: 1.8;
-    color: var(--cocoa);
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
 }
 
-/* Typewriter text for labels */
-.typewriter-text {
-    font-family: var(--font-typewriter);
-    letter-spacing: 0.05em;
+.italic-accent {
+    font-style: italic;
+    color: var(--primrose-pink-dark);
 }
 
 /* ============================================
-   LAYOUT UTILITIES
+   CONTAINER
    ============================================ */
 .container {
     width: 100%;
-    max-width: 1300px;
+    max-width: var(--container-max);
     margin: 0 auto;
-    padding: 0 clamp(1.5rem, 4vw, 3rem);
+    padding: 0 clamp(1.25rem, 4vw, 2.5rem);
 }
 
 .section {
@@ -166,661 +167,442 @@ p {
     position: relative;
 }
 
-/* ============================================
-   SCRAP PAGE CARD - Torn Paper Container
-   ============================================ */
-.scrap-page {
-    background: var(--paper-white);
-    position: relative;
-    padding: 2.5rem;
-    box-shadow: var(--shadow-paper);
-
-    /* Torn edge effect using mask */
-    clip-path: polygon(0% 0%,
-            3% 0.5%,
-            6% 0%,
-            9% 0.8%,
-            12% 0.2%,
-            15% 0.6%,
-            18% 0%,
-            21% 0.4%,
-            24% 0.1%,
-            27% 0.7%,
-            30% 0.2%,
-            33% 0.5%,
-            36% 0%,
-            39% 0.6%,
-            42% 0.1%,
-            45% 0.4%,
-            48% 0%,
-            51% 0.5%,
-            54% 0.2%,
-            57% 0.7%,
-            60% 0%,
-            63% 0.4%,
-            66% 0.1%,
-            69% 0.6%,
-            72% 0.2%,
-            75% 0.5%,
-            78% 0%,
-            81% 0.7%,
-            84% 0.3%,
-            87% 0.6%,
-            90% 0%,
-            93% 0.4%,
-            96% 0.1%,
-            100% 0%,
-            100% 100%,
-            97% 99.5%,
-            94% 100%,
-            91% 99.3%,
-            88% 99.8%,
-            85% 99.4%,
-            82% 100%,
-            79% 99.6%,
-            76% 99.2%,
-            73% 99.7%,
-            70% 100%,
-            67% 99.5%,
-            64% 99.8%,
-            61% 99.3%,
-            58% 100%,
-            55% 99.6%,
-            52% 99.2%,
-            49% 99.8%,
-            46% 99.4%,
-            43% 100%,
-            40% 99.5%,
-            37% 99.9%,
-            34% 99.3%,
-            31% 99.7%,
-            28% 100%,
-            25% 99.4%,
-            22% 99.8%,
-            19% 99.2%,
-            16% 99.6%,
-            13% 100%,
-            10% 99.5%,
-            7% 99.8%,
-            4% 99.3%,
-            1% 99.7%,
-            0% 100%);
-}
-
-.scrap-page::before {
+/* Smooth flowing section backgrounds */
+.section::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)' opacity='0.02'/%3E%3C/svg%3E");
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
     pointer-events: none;
+    z-index: -1;
 }
 
-.scrap-page.rotated-left {
-    transform: rotate(-1deg);
+/* Alt background sections - soft pink with pattern */
+.section.alt-bg {
+    background: linear-gradient(180deg,
+            var(--yucca) 0%,
+            var(--pinktone) 8%,
+            var(--pinktone) 92%,
+            var(--yucca) 100%);
 }
 
-.scrap-page.rotated-right {
-    transform: rotate(1deg);
-}
-
-.scrap-page.cream {
-    background: var(--paper-cream);
-}
-
-.scrap-page.aged {
-    background: var(--paper-aged);
-}
-
-/* ============================================
-   STICKY NOTE COMPONENT
-   ============================================ */
-.sticky-note {
-    background: var(--sticky-yellow);
-    padding: 1.25rem 1.5rem;
-    position: relative;
-    box-shadow:
-        2px 3px 8px rgba(0, 0, 0, 0.1),
-        0 1px 2px rgba(0, 0, 0, 0.08);
-    transform: rotate(-1deg);
-    font-family: var(--font-body);
-}
-
-.sticky-note::before {
+/* Add subtle diagonal stripes pattern to alt sections */
+.section.alt-bg::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 25px;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.03) 0%, transparent 100%);
+    inset: 0;
+    background: repeating-linear-gradient(135deg,
+            transparent 0px,
+            transparent 20px,
+            rgba(232, 180, 184, 0.06) 20px,
+            rgba(232, 180, 184, 0.06) 21px);
     pointer-events: none;
-}
-
-.sticky-note.pink {
-    background: var(--sticky-pink);
-}
-
-.sticky-note.blue {
-    background: var(--sticky-blue);
-}
-
-.sticky-note.green {
-    background: var(--sticky-green);
-}
-
-.sticky-note.orange {
-    background: var(--sticky-orange);
-}
-
-.sticky-note:hover {
-    transform: rotate(-1deg) translateY(-3px);
-    box-shadow:
-        4px 6px 15px rgba(0, 0, 0, 0.15),
-        0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* ============================================
-   WASHI TAPE COMPONENT
-   ============================================ */
-.washi-tape {
-    position: absolute;
-    height: 28px;
-    background: var(--washi-pink);
-    opacity: 0.85;
-    z-index: 10;
-}
-
-.washi-tape.horizontal {
-    width: 100px;
-}
-
-.washi-tape.diagonal-left {
-    width: 80px;
-    transform: rotate(-35deg);
-}
-
-.washi-tape.diagonal-right {
-    width: 80px;
-    transform: rotate(35deg);
-}
-
-.washi-tape.blue {
-    background: var(--washi-blue);
-}
-
-.washi-tape.mint {
-    background: var(--washi-mint);
-}
-
-.washi-tape.peach {
-    background: var(--washi-peach);
-}
-
-/* Polka dot pattern */
-.washi-tape.polka {
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) 2px, transparent 2px);
-    background-size: 8px 8px;
-}
-
-/* Stripe pattern */
-.washi-tape.striped {
-    background-image: repeating-linear-gradient(45deg,
-            transparent,
-            transparent 3px,
-            rgba(255, 255, 255, 0.4) 3px,
-            rgba(255, 255, 255, 0.4) 6px);
-}
-
-/* ============================================
-   POLAROID FRAME COMPONENT
-   ============================================ */
-.polaroid-frame {
-    background: #FFFEF9;
-    padding: 12px 12px 45px 12px;
-    box-shadow:
-        0 4px 15px rgba(0, 0, 0, 0.1),
-        0 8px 30px rgba(0, 0, 0, 0.05);
-    transform: rotate(2deg);
-    position: relative;
-}
-
-.polaroid-frame .photo-area {
-    background: linear-gradient(135deg, #E8E4DA 0%, #D4D0C6 100%);
-    aspect-ratio: 1 / 1.1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-typewriter);
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    border: 1px dashed #999;
-}
-
-.polaroid-frame .caption {
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    right: 0;
-    text-align: center;
-    font-family: var(--font-typewriter);
-    font-size: 0.75rem;
-    color: var(--cocoa);
-}
-
-/* ============================================
-   PAPERCLIP COMPONENT
-   ============================================ */
-.paperclip {
-    position: absolute;
-    width: 25px;
-    height: 60px;
-    z-index: 15;
-}
-
-.paperclip svg {
-    width: 100%;
-    height: 100%;
-}
-
-.paperclip:hover {
-    animation: wiggle 0.3s ease-in-out;
-}
-
-@keyframes wiggle {
-
-    0%,
-    100% {
-        transform: rotate(0deg);
-    }
-
-    25% {
-        transform: rotate(5deg);
-    }
-
-    75% {
-        transform: rotate(-5deg);
-    }
-}
-
-/* ============================================
-   STAMP BADGE COMPONENT
-   ============================================ */
-.stamp-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 16px;
-    border: 3px solid var(--muted-red);
-    border-radius: 4px;
-    font-family: var(--font-typewriter);
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--muted-red);
-    transform: rotate(-5deg);
-    opacity: 0.85;
-}
-
-.stamp-badge.circle {
-    border-radius: 50%;
-    width: 70px;
-    height: 70px;
-    padding: 0;
-}
-
-/* ============================================
-   STICKER LABEL COMPONENT
-   ============================================ */
-.sticker-label {
-    display: inline-block;
-    padding: 4px 12px;
-    background: var(--kraft-paper);
-    font-family: var(--font-typewriter);
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--paper-white);
-    box-shadow: var(--shadow-sticker);
-}
-
-.sticker-label.white {
-    background: var(--paper-white);
-    color: var(--charcoal);
-    border: 1px solid #DDD;
-}
-
-/* ============================================
-   VERTICAL SIDE LABEL
-   ============================================ */
-.side-label {
-    position: absolute;
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    font-family: var(--font-typewriter);
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    opacity: 0.6;
-}
-
-/* ============================================
-   CRUSHED PAPER TEXTURE
-   ============================================ */
-.crushed-paper-bg {
-    position: relative;
-}
-
-.crushed-paper-bg::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='crumple'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.02' numOctaves='3' seed='15' /%3E%3CfeDisplacementMap in='SourceGraphic' scale='5' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23F5ECD7' opacity='0.2'/%3E%3C/svg%3E");
-    pointer-events: none;
-    opacity: 0.5;
     z-index: 0;
 }
 
 /* ============================================
-   BUTTONS - SCRAPBOOK STYLE
+   SECTION HEADER
+   ============================================ */
+.section-header {
+    margin-bottom: 2.5rem;
+}
+
+.section-label {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--primrose-pink-dark);
+    margin-bottom: 0.4rem;
+    display: block;
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: var(--lime);
+    border-radius: 2px;
+}
+
+/* ============================================
+   CARDS & COMPONENTS
+   ============================================ */
+.soft-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.3s ease;
+}
+
+.soft-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+}
+
+/* Polaroid style - subtle scrapbook */
+.polaroid {
+    background: white;
+    padding: 6px;
+    padding-bottom: 28px;
+    box-shadow: var(--shadow-card);
+    display: inline-block;
+}
+
+.polaroid img {
+    width: 100%;
+    display: block;
+}
+
+.polaroid-caption {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    text-align: center;
+    margin-top: 6px;
+}
+
+/* Subtle tape element */
+.tape {
+    position: absolute;
+    width: 50px;
+    height: 16px;
+    background: var(--pinktone-deep);
+    opacity: 0.75;
+    z-index: 2;
+}
+
+.tape.lime {
+    background: var(--lime-light);
+}
+
+/* ============================================
+   BUTTONS
    ============================================ */
 .btn {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    font-family: var(--font-accent);
-    font-size: 0.9rem;
+    gap: 6px;
+    padding: 10px 22px;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
     font-weight: 500;
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s ease;
     border: none;
-    outline: none;
+    text-decoration: none;
 }
 
 .btn-primary {
-    background: var(--muted-red);
-    color: var(--paper-white);
-    box-shadow: 0 3px 10px rgba(184, 74, 74, 0.3);
+    background: var(--primrose-pink);
+    color: var(--text-primary);
 }
 
 .btn-primary:hover {
-    background: #A43E3E;
+    background: var(--primrose-pink-dark);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(184, 74, 74, 0.4);
 }
 
-.btn-secondary {
+.btn-outline {
     background: transparent;
-    color: var(--charcoal);
-    border: 2px solid var(--charcoal);
+    color: var(--text-primary);
+    border: 1.5px solid var(--text-primary);
 }
 
-.btn-secondary:hover {
-    background: var(--charcoal);
-    color: var(--paper-white);
+.btn-outline:hover {
+    background: var(--text-primary);
+    color: var(--yucca);
 }
 
-.btn-kraft {
-    background: var(--kraft-paper);
-    color: var(--paper-white);
-}
-
-.btn-kraft:hover {
-    background: var(--kraft-dark);
+.btn-small {
+    padding: 6px 14px;
+    font-size: 0.75rem;
 }
 
 /* ============================================
-   FORM ELEMENTS
+   TAGS
    ============================================ */
-.input-field {
-    width: 100%;
-    padding: 14px 18px;
-    font-family: var(--font-body);
-    font-size: 1rem;
-    background: var(--paper-white);
-    border: 2px solid #E0D8C8;
-    border-radius: 4px;
-    color: var(--charcoal);
+.tag {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    border-radius: 12px;
+    background: var(--pinktone);
+    color: var(--text-secondary);
+}
+
+.tag.lime {
+    background: var(--lime-light);
+    color: var(--lime-dark);
+}
+
+/* ============================================
+   GRIDS
+   ============================================ */
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+@media (max-width: 900px) {
+
+    .grid-3,
+    .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================
+   SKILL PILLS
+   ============================================ */
+.skill-group {
+    margin-bottom: 1.5rem;
+}
+
+.skill-group-title {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 0.6rem;
+}
+
+.skill-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.skill-pill {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    background: white;
+    color: var(--text-primary);
+    border-radius: 20px;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.2s ease;
+}
+
+.skill-pill:hover {
+    background: var(--primrose-pink-light);
+    transform: translateY(-1px);
+}
+
+.skill-pill.highlight {
+    background: var(--primrose-pink);
+}
+
+/* ============================================
+   PROJECT CARDS (Pinterest style)
+   ============================================ */
+.project-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
     transition: all 0.3s ease;
 }
 
-.input-field::placeholder {
-    color: var(--text-muted);
+.project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-medium);
 }
 
-.input-field:focus {
-    outline: none;
-    border-color: var(--denim-blue);
-    box-shadow: 0 0 0 3px rgba(46, 94, 138, 0.1);
+.project-thumb {
+    height: 140px;
+    background: linear-gradient(135deg, var(--pinktone) 0%, var(--lime-light) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
 
-textarea.input-field {
-    min-height: 130px;
-    resize: vertical;
-}
-
-/* ============================================
-   CUTE STICKERS (CSS-based)
-   ============================================ */
-.sticker {
-    position: absolute;
-    pointer-events: none;
-    z-index: 5;
-}
-
-.sticker.camera {
+.project-icon {
     width: 50px;
     height: 50px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
 }
 
-.sticker.bow {
-    width: 45px;
-    height: 35px;
+.project-content {
+    padding: 1.25rem;
 }
 
-.sticker.heart {
-    width: 30px;
-    height: 30px;
+.project-title {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
 }
 
-.sticker.star {
-    width: 25px;
-    height: 25px;
+.project-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
 }
 
-.sticker.flower {
-    width: 35px;
-    height: 35px;
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
 }
 
-/* ============================================
-   DATE LABEL TAG
-   ============================================ */
-.date-tag {
+.project-link {
+    font-size: 0.8rem;
+    color: var(--primrose-pink-dark);
+    text-decoration: none;
+    font-weight: 500;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 5px 12px;
-    background: var(--paper-white);
-    border: 1px solid #DDD;
-    font-family: var(--font-typewriter);
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    box-shadow: var(--shadow-sticker);
+    gap: 4px;
+}
+
+.project-link:hover {
+    text-decoration: underline;
 }
 
 /* ============================================
-   TICKET STUB
+   ACHIEVEMENT CARDS
    ============================================ */
-.ticket-stub {
-    background: var(--paper-cream);
-    padding: 12px 16px;
-    border-left: 4px dashed var(--kraft-paper);
-    position: relative;
-    font-family: var(--font-typewriter);
+.achievement-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--shadow-soft);
 }
 
-.ticket-stub::before,
-.ticket-stub::after {
-    content: '';
-    position: absolute;
-    left: -8px;
-    width: 16px;
-    height: 16px;
-    background: var(--gingham-blue-light);
-    border-radius: 50%;
-}
-
-.ticket-stub::before {
-    top: -8px;
-}
-
-.ticket-stub::after {
-    bottom: -8px;
-}
-
-/* ============================================
-   BINDER CLIP
-   ============================================ */
-.binder-clip {
-    position: absolute;
+.achievement-icon {
     width: 40px;
-    height: 20px;
-    z-index: 15;
+    height: 40px;
+    background: var(--lime-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.1rem;
+}
+
+.achievement-content h4 {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.achievement-content p {
+    font-size: 0.8rem;
+    color: var(--text-light);
 }
 
 /* ============================================
-   SECTION DECORATORS
+   SCROLL PROGRESS
    ============================================ */
-.section-title-wrapper {
-    display: inline-block;
-    position: relative;
-    margin-bottom: 2rem;
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: var(--primrose-pink);
+    z-index: 9999;
+    transition: width 0.1s ease-out;
 }
 
-.section-title-wrapper .label-strip {
-    position: absolute;
-    bottom: -5px;
-    left: -10px;
-    right: -10px;
-    height: 12px;
-    background: var(--sticky-yellow);
-    opacity: 0.7;
-    z-index: -1;
-    transform: rotate(-1deg);
+/* ============================================
+   DIVIDERS
+   ============================================ */
+.divider-dot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 2rem 0;
+}
+
+.divider-dot::before,
+.divider-dot::after {
+    content: '';
+    height: 1px;
+    width: 40px;
+    background: var(--pinktone-deep);
+}
+
+.divider-dot span {
+    width: 5px;
+    height: 5px;
+    background: var(--primrose-pink);
+    border-radius: 50%;
 }
 
 /* ============================================
    ANIMATIONS
    ============================================ */
-@keyframes paper-drop {
-    0% {
+@keyframes fadeInUp {
+    from {
         opacity: 0;
-        transform: translateY(-30px) rotate(-3deg);
+        transform: translateY(20px);
     }
 
-    70% {
-        transform: translateY(5px) rotate(1deg);
-    }
-
-    100% {
+    to {
         opacity: 1;
-        transform: translateY(0) rotate(0deg);
+        transform: translateY(0);
     }
 }
 
-@keyframes sticker-pop {
-    0% {
+@keyframes fadeIn {
+    from {
         opacity: 0;
-        transform: scale(0.3) rotate(-15deg);
     }
 
-    60% {
-        transform: scale(1.1) rotate(3deg);
-    }
-
-    100% {
+    to {
         opacity: 1;
-        transform: scale(1) rotate(0deg);
-    }
-}
-
-@keyframes tape-stick {
-    0% {
-        opacity: 0;
-        transform: translateY(-20px) rotate(var(--tape-rotation, 0deg));
-    }
-
-    100% {
-        opacity: 0.85;
-        transform: translateY(0) rotate(var(--tape-rotation, 0deg));
-    }
-}
-
-@keyframes stamp-press {
-    0% {
-        opacity: 0;
-        transform: scale(1.5) rotate(-10deg);
-    }
-
-    50% {
-        transform: scale(0.95) rotate(-5deg);
-    }
-
-    100% {
-        opacity: 0.85;
-        transform: scale(1) rotate(-5deg);
-    }
-}
-
-@keyframes float-gentle {
-
-    0%,
-    100% {
-        transform: translateY(0) rotate(0deg);
-    }
-
-    50% {
-        transform: translateY(-8px) rotate(1deg);
-    }
-}
-
-/* ============================================
-   RESPONSIVE ADJUSTMENTS
-   ============================================ */
-@media (max-width: 1024px) {
-    :root {
-        --section-padding: clamp(3rem, 8vw, 5rem);
-    }
-}
-
-@media (max-width: 768px) {
-    :root {
-        --section-padding: clamp(2.5rem, 6vw, 4rem);
-    }
-
-    .scrap-page {
-        padding: 1.5rem;
-        transform: none !important;
-    }
-
-    .side-label {
-        display: none;
-    }
-
-    body {
-        background-size: 100% 100%, 30px 30px, 30px 30px;
     }
 }
 
@@ -828,27 +610,220 @@ textarea.input-field {
    SCROLLBAR
    ============================================ */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--gingham-blue-light);
+    background: var(--yucca);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--kraft-paper);
-    border-radius: 5px;
-    border: 2px solid var(--gingham-blue-light);
+    background: var(--pinktone-deep);
+    border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--kraft-dark);
+    background: var(--primrose-pink);
+}
+
+::selection {
+    background: var(--primrose-pink-light);
+    color: var(--text-primary);
 }
 
 /* ============================================
-   SELECTION
+   RESPONSIVE
    ============================================ */
-::selection {
-    background: var(--dusty-pink);
-    color: var(--charcoal);
+@media (max-width: 768px) {
+    :root {
+        --section-padding: clamp(3rem, 8vw, 4rem);
+    }
+
+    .soft-card,
+    .project-content {
+        padding: 1.25rem;
+    }
+}
+
+/* ============================================
+   DYNAMIC ANIMATIONS & EFFECTS
+   ============================================ */
+
+/* Animated underline for links */
+.animated-link {
+    position: relative;
+    text-decoration: none;
+}
+
+.animated-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--lime);
+    transition: width 0.3s ease;
+}
+
+.animated-link:hover::after {
+    width: 100%;
+}
+
+/* Hover lift effect */
+.hover-lift {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Subtle pulse animation */
+.pulse-subtle {
+    animation: pulse-subtle 3s ease-in-out infinite;
+}
+
+@keyframes pulse-subtle {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+/* Gradient text animation */
+.gradient-text {
+    background: linear-gradient(90deg,
+            var(--primrose-pink-dark) 0%,
+            var(--lime-dark) 50%,
+            var(--primrose-pink-dark) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-shift 4s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+
+    0%,
+    100% {
+        background-position: 0% center;
+    }
+
+    50% {
+        background-position: 100% center;
+    }
+}
+
+/* Shimmer effect for cards on hover */
+.shimmer-hover {
+    position: relative;
+    overflow: hidden;
+}
+
+.shimmer-hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent);
+    transition: none;
+    z-index: 1;
+}
+
+.shimmer-hover:hover::before {
+    animation: shimmer 0.8s ease-out;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 200%;
+    }
+}
+
+/* Float animation for decorative elements */
+.float {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* Gentle bounce */
+.bounce-gentle {
+    animation: bounce-gentle 2s ease-in-out infinite;
+}
+
+@keyframes bounce-gentle {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* Spin slow (for icons/logos) */
+.spin-slow {
+    animation: spin-slow 20s linear infinite;
+}
+
+@keyframes spin-slow {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Stagger animation delays for lists */
+.stagger-1 {
+    animation-delay: 0.1s;
+}
+
+.stagger-2 {
+    animation-delay: 0.2s;
+}
+
+.stagger-3 {
+    animation-delay: 0.3s;
+}
+
+.stagger-4 {
+    animation-delay: 0.4s;
+}
+
+.stagger-5 {
+    animation-delay: 0.5s;
 }
