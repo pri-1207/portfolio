@@ -5,7 +5,7 @@ A modern, premium personal portfolio website built with a **minimal + pastel des
 This portfolio showcases my **projects, skills, experience, and achievements** through smooth interactions, subtle motion, and performance-focused UI decisions.
 
 🔗 **Live Website:**  
-https://portfolio-luq8kpqvj-pris-projects-00f60fdc.vercel.app
+https://portfolio-pi-gilt-78.vercel.app/
 
 ---
 
